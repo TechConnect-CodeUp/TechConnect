@@ -1,15 +1,11 @@
 package com.example.techconnect.repositories;
 
-import com.example.techconnect.models.Attendees;
+import com.example.techconnect.models.Interests;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AttendeesRepository extends JpaRepository<Attendees,Long> {
-
-
-
-
+public interface InterestsRepository extends JpaRepository<Interests,Long> {
 
 
 }
