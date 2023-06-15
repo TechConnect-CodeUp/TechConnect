@@ -19,19 +19,36 @@ public class UserController {
         this.encoder = encoder;
     }
 
-    @GetMapping("/sign-up")
+    @GetMapping("/register")
     public String showSignupForm(Model model){
-        model.addAttribute("user", new User());
-        return "sign-up";
+        User user = new User();
+        model.addAttribute("user", user);
+        return "register";
     }
 
-    @PostMapping("/sign-up")
+    @PostMapping("/register")
     public String registerUser(@ModelAttribute User user){
         // hash the password
         String hash = encoder.encode(user.getPassword());
         // set the hashed password BEFORE saving to the database
         user.setPassword(hash);
         userDao.save(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm(Model model){
+        User user = new User();
+        model.addAttribute("user", user);
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@ModelAttribute User user){
+        User userFromDb = userDao.findByUsername(user.getUsername());
+        if(userFromDb!= null && encoder.matches(user.getPassword(), userFromDb.getPassword())){
+            return "redirect:/";
+        }
         return "redirect:/login";
     }
 }
