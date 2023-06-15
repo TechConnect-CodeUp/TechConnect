@@ -5,22 +5,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         themeSystem: 'bootstrap5',
+        selectable:true,
         headerToolbar: {
             left: "prev,next today",
             center: "title",
             right: "dayGridMonth, timeGridWeek, timeGridDay"
 
         },
-        events: [
-            {
-                id: 1,
-                title: "Hey",
-                start: "2023-06-23T7:30:00",
-                end: "2023-06-23T10:30:00",
-                allDay: false
-            },
-        ]
+        events: []
     });
+
     calendar.render();
 
     $(".btn").click( function () {
@@ -32,10 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(startTime)
         console.log(endTime)
 
-        var newEvent = { title:title,start:startTime,end:endTime, allDay:false}
-
-        calendar.addEvent(newEvent,calendar.events)
-
+        var newEvent = {};
+        newEvent.title = title
+        newEvent.start = startTime
+        newEvent.end = endTime
+        newEvent.allDay = false
 
     })
 })
