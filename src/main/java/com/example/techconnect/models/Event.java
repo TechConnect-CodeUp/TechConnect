@@ -7,13 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-
-
-
 
 
 @Entity
@@ -21,25 +20,29 @@ import lombok.Setter;
 
 public class Event {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long EventId;
 
+    @Column(nullable = false, columnDefinition = "VARCHAR(100)")
     private String title;
+
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String description;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String location;
 
-    // We will uncomment this relationship after a pull request
+    @Column(name = "date_time", columnDefinition = "TIMESTAMP")
+    private LocalDateTime dateTime;
 
+
+    // This will be uncommented after the first merge
 //    @ManyToOne
-//    private User HostID;
-
-
-
-
-
-
-
+//    @JoinColumn(name = "userid")
+//    private User host;
 
 
 }
