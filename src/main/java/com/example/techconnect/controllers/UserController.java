@@ -47,8 +47,8 @@ public class UserController {
     public String loginUser(@ModelAttribute User user){
         User userFromDb = userDao.findByUsername(user.getUsername());
         if(userFromDb!= null && encoder.matches(user.getPassword(), userFromDb.getPassword())){
-            return "redirect:/";
+            return "redirect:/login";
         }
-        return "redirect:/login";
+        return "redirect:/profile";
     }
 }
