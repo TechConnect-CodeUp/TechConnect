@@ -48,8 +48,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
                         /* Pages that require authentication
-                         * only authenticated users can create and edit events */
-                        .requestMatchers("/events/create", "/events/*/edit").authenticated()
+                         * only authenticated users can create and edit events and view their profile */
+                        .requestMatchers("/events/create", "/events/*/edit", "/profile").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view events */
                         .requestMatchers("/login","/", "/events", "/events/*", "/register").permitAll()
@@ -57,7 +57,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/events"))
+                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/profile"))
                 /* Logout configuration */
                 .logout((logout) -> logout.logoutSuccessUrl("/login?logout"))
                 .httpBasic(withDefaults());
