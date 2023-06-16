@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -51,8 +52,21 @@ public class User {
     }
 
 
-//    @OneToMany(cascade = CascadeType.ALL), mappedBy = "user")
-//    List<Event> events;
+    // Relationship Entity
+
+    @OneToMany(mappedBy = "user")
+    private List<UserInterest> userInterests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Discussion> discussions = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment>comments = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Event> events = new ArrayList<>();
 
 
 }
