@@ -31,5 +31,18 @@ public class Comment {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    // Entity Relationships
+
+    @ManyToOne
+    @JoinColumn(name = "discussion_id")
+    private Discussion discussion;
+
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
+
 
 }
