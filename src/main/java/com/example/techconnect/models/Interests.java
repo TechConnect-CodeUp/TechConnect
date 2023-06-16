@@ -18,7 +18,7 @@ public class Interests {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long interestId;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR")
+    @Column(nullable = false)
     private String Interest;
 
 

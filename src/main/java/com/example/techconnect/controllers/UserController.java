@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -31,14 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, @RequestParam("profilePicture") MultipartFile profilePicture, Model model){
-        // Save the profile picture if provided
-        if (!profilePicture.isEmpty()) {
-            // Save the profile picture file and set the path in the user object
-            String profilePicturePath = "/Users/coleusher/IdeaProjects/TechConnect/src/main/resources/static/img"; // Replace with your logic to save the file
-            user.setProfilePicture(profilePicturePath);
-        }
-
+    public String registerUser(@ModelAttribute User user, Model model){
         // Hash the password
         String hash = encoder.encode(user.getPassword());
         // Set the hashed password BEFORE saving to the database
@@ -49,42 +42,60 @@ public class UserController {
         return "redirect:/profile";
     }
 
-    @GetMapping("/profile")
-    public String showProfile(Model model, HttpSession session) {
-        // Retrieve the user object from the session
-        User user = (User) session.getAttribute("user");
-
-        // Check if the user object is null
-        if (user == null) {
-            // Handle the case where the user is not logged in
-            return "redirect:/login";
-        }
-
-        model.addAttribute("user", user);
-        return "profile";
-    }
 
 
-    @GetMapping("/login")
-    public String showLoginForm(Model model){
-        User user = new User();
-        model.addAttribute("user", user);
-        return "login";
-    }
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request){
-        // Retrieve the user object from the database based on the provided username
-        User userFromDb = userDao.findByUsername(user.getUsername());
+    public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
 
-        // Check if the user exists and compare the passwords
-        if (userFromDb != null && encoder.matches(user.getPassword(), userFromDb.getPassword())) {
-            // If the passwords match, set the user object in the session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", userFromDb);
+        // Retrieve the user object from the database based on the provided username
+        User authenticatedUser = userDao.findByUsername(user.getUsername());
+        System.out.println("Username:" + authenticatedUser);
+        // Check if the user exists and the password matches
+        if (authenticatedUser != null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
+            // Authentication successful, set the user attribute in the session
+            request.getSession().setAttribute("user", authenticatedUser);
             return "redirect:/profile";
         }
 
-        model.addAttribute("error", "Invalid username or password");
-        return "login";
+        // if Authentication failed, redirect back to the login page with an error message
+        return "redirect:/login";
     }
+
+
+
+
+
+
+
+
+    // not allowing to go to /profile when logging in redirects to /login?error I guess the user is null
+    @GetMapping("/profile")
+    public String showProfile() {
+       return "profile";
+    }
+
+
+    @PostMapping("/profile")
+    public String updateProfile(@ModelAttribute User user, Model model) {
+        // Retrieve the user object from the database based on the provided username
+        User authenticatedUser = userDao.findByUsername(user.getUsername());
+        // Check if the user exists and the password matches
+        if (authenticatedUser!= null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
+            // Authentication successful, set the user attribute in the session
+            model.addAttribute("user", authenticatedUser);
+            return "profile";
+        }
+
+        // if Authentication failed, redirect back to the login page with an error message
+        return "redirect:/login";
+
+    }
+
+
+
+
+
+
+
+
 }

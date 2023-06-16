@@ -48,11 +48,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
                         /* Pages that require authentication
-                         * only authenticated users can create and edit events and view their profile */
-                        .requestMatchers("/events/create", "/events/*/edit", "/profile").authenticated()
+                         * only authenticated users can create and edit ads */
+                        .requestMatchers("/events/create", "/events/*/edit","/profile").authenticated()
                         /* Pages that do not require authentication
-                         * anyone can visit the home page, register, login, and view events */
-                        .requestMatchers("/login","/", "/events", "/events/*", "/register").permitAll()
+                         * anyone can visit the home page, register, login, and view ads */
+                        .requestMatchers("/", "/events", "/events/*", "/register", "/login").permitAll()
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )
@@ -64,4 +64,3 @@ public class SecurityConfiguration {
         return http.build();
     }
 }
-
