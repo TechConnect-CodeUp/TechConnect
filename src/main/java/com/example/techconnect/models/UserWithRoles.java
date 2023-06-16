@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class UserWithRoles extends User implements UserDetails {
+public class UserWithRoles extends Users implements UserDetails {
 
-    public UserWithRoles(User user) {
+    public UserWithRoles(Users user) {
         super(user);  // Call the copy constructor defined in User
     }
 

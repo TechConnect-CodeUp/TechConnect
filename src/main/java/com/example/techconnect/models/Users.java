@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,7 +39,7 @@ public class User {
     private String profilePicture;
 
     // This is known as a copy constructor, which will make a clone of the user object.
-    public User(User copy) {
+    public Users(Users copy) {
         this.id = copy.id;
         this.email = copy.email;
         this.username = copy.username;

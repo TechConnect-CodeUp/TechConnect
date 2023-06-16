@@ -8,31 +8,28 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "discussions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Discussion {
 
+@Entity
+@Table(name = "comments")
+public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(100)")
     private String title;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+
+    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private String content;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
-
-
-//    @ManyToOne(optional = false)
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
 
 
 }

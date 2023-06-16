@@ -3,8 +3,6 @@ package com.example.techconnect.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,14 +12,14 @@ import java.util.List;
 @Table(name = "interests")
 
 
-public class Interests {
+public class Interest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long interestId;
+    private Long id;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR")
-    private String Interest;
+    @Column(nullable = false, columnDefinition = "VARCHAR(50)")
+    private String interest;
 
 //    @OneToMany(mappedBy = "interest", cascade = CascadeType.ALL)
 //    private List<Event> events;

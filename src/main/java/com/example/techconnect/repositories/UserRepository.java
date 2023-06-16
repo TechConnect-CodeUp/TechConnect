@@ -1,9 +1,9 @@
 package com.example.techconnect.repositories;
 
-import com.example.techconnect.models.User;
+import com.example.techconnect.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<Users, Long> {
 
-    User findByUsername(String username);
+    Users findByUsername(String username);
 }

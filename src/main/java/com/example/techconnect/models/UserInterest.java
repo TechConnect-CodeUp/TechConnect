@@ -15,7 +15,7 @@ public class UserInterest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long UserInterestID;
+    private Long id;
 
 //    @ManyToOne
 //    @JoinColumn(name = "user_id")

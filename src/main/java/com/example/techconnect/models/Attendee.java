@@ -1,36 +1,47 @@
 package com.example.techconnect.models;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 
+
 @Entity
-@Table(name="review")
-public class Reviews {
+@Table(name = "attendees")
+public class Attendee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String title;
 
-    @Column(nullable = false)
-    private String description;
-
-    @Column(nullable = false)
-    private int rating;
+    // We will uncomment this line of after a successfull merge
 
 
-    // Create Relationships
+//    @ManyToOne
+//    @JoinColumn(name = "event_id")
+//    private Event event;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+
+
+
+
+
+
+
+
+
 
 
 }

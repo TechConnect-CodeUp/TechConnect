@@ -44,6 +44,8 @@ public class Event {
 //    @JoinColumn(name = "userid")
 //    private User host;
 
+    // Create a One to Many relationship between Events and Attendees
+
 
 
 
