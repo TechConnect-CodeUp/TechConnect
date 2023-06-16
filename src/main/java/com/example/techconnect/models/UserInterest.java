@@ -17,13 +17,22 @@ public class UserInterest {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "interest_id")
-//    private Interests interest;
+    // Entity Relationship
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="interest_id")
+    private Interest interest;
+
+
+
+
+
+
+
 
 }
 
