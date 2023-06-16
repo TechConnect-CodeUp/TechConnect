@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,6 +40,9 @@ public class Event {
     @Column(name = "date_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
 
+    // Entity Relationship diagram
+
+
     @ManyToOne
     @JoinColumn(name="host_id")
     private User user;
@@ -45,6 +50,15 @@ public class Event {
     @ManyToOne
     @JoinColumn(name="interest_id")
     private Interest interest;
+
+    @OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
+    private List<Attendee>attendees = new ArrayList<>();
+
+    @OneToMany(mappedBy = "event",cascade = CascadeType.ALL)
+    private List<Review>reviews = new ArrayList<>();
+
+
+
 
 
 

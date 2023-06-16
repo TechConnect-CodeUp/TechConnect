@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "discussions")
@@ -29,10 +31,17 @@ public class Discussion {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
+    // Relationship Entity
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "discussion",cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
+
 
 
 
