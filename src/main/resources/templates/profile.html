@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>PROFILE</title>
+</head>
+<body>
+<h1>User Profile</h1>
+
+<div  th:object="${user}">
+    <p th:text="${user.email}"><strong>Email:</strong>  </p>
+    <p th:text="${user.firstName}"><strong>First Name:</strong></p>
+    <p th:text="${user.lastName}"><strong>Last Name:</strong></p>
+    <p th:text="${user.username}"><strong>Username:</strong></p>
+    <p><strong>Profile Picture:</strong></p>
+    <img th:src="@{${user.profilePicture}}" alt="Profile Picture" width="200px" height="200px"/>
+</div>
+
+</body>
+</html>

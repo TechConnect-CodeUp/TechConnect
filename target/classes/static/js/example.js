@@ -1,19 +1,28 @@
 "use strict";
-
+import { Calendar } from '@fullcalendar/core'
+import multiMonthPlugin from '@fullcalendar/multimonth'
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        // plugins: [multiMonthPlugin],
         themeSystem: 'bootstrap5',
-        selectable:true,
-        headerToolbar: {
-            left: "prev,next today",
-            center: "title",
-            right: "dayGridMonth, timeGridWeek, timeGridDay"
+                headerToolbar: {
+                    left: "prev,next",
+                    center: "title",
+                    right: "dayGridMonth, timeGridWeek, timeGridDay ,list"
 
-        },
-        events: []
-    });
+                },
+                events: [],
+                selectable: true,
+                dayMaxEventRows: true, // for all non-TimeGrid views
+                views: {
+                   timeGrid: {
+                   dayMaxEventRows: 6,
+
+            }
+        }
+    })
 
     calendar.render();
 
@@ -26,11 +35,15 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(startTime)
         console.log(endTime)
 
-        var newEvent = {};
+        var newEvent = {}
         newEvent.title = title
         newEvent.start = startTime
         newEvent.end = endTime
         newEvent.allDay = false
+
+        calendar.addEvent(newEvent);
+
+        var events = calendar.getEvents();
 
     })
 })
