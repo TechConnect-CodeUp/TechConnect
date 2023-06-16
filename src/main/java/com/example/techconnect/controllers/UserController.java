@@ -4,6 +4,7 @@ import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,9 +69,12 @@ public class UserController {
 
 
 
-    // not allowing to go to /profile when logging in redirects to /login?error I guess the user is null
+    // not allowing to go to /profile when logging in redirects to /login I guess the user is null
     @GetMapping("/profile")
-    public String showProfile() {
+    public String showProfile(Model model) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        model.addAttribute("user", loggedInUser);
        return "profile";
     }
 
