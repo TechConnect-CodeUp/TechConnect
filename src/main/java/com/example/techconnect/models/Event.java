@@ -40,9 +40,13 @@ public class Event {
 
 
     // This will be uncommented after the first merge
-    @ManyToOne
-    @JoinColumn(name = "userid")
-    private User host;
+//    @ManyToOne
+//    @JoinColumn(name = "userid")
+//    private User host;
+
+
+
+
 
 
 }

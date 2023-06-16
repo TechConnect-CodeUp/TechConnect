@@ -26,14 +26,14 @@ public class Attendees {
     // We will uncomment this line of after a successfull merge
 
 
-    @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
-
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "event_id")
+//    private Event event;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
 
 

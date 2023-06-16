@@ -5,12 +5,14 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "interests")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "interests")
+
 
 public class Interests {
 
@@ -21,9 +23,8 @@ public class Interests {
     @Column(nullable = false, columnDefinition = "VARCHAR")
     private String Interest;
 
-
-    @OneToMany
-    private List<Event> events;
+//    @OneToMany(mappedBy = "interest", cascade = CascadeType.ALL)
+//    private List<Event> events;
 
 
 }
