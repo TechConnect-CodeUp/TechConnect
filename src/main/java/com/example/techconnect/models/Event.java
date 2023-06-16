@@ -38,15 +38,13 @@ public class Event {
     @Column(name = "date_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
 
+    @ManyToOne
+    @JoinColumn(name="host_id")
+    private User user;
 
-    // This will be uncommented after the first merge
-//    @ManyToOne
-//    @JoinColumn(name = "userid")
-//    private User host;
-
-    // Create a One to Many relationship between Events and Attendees
-
-
+    @ManyToOne
+    @JoinColumn(name="interest_id")
+    private Interest interest;
 
 
 
