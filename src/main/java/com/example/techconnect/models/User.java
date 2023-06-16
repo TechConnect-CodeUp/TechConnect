@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +39,7 @@ public class Users {
     private String profilePicture;
 
     // This is known as a copy constructor, which will make a clone of the user object.
-    public Users(Users copy) {
+    public User(User copy) {
         this.id = copy.id;
         this.email = copy.email;
         this.username = copy.username;

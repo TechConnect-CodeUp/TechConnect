@@ -1,6 +1,6 @@
 package com.example.techconnect.controllers;
 
-import com.example.techconnect.models.Users;
+import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,13 +25,13 @@ public class UserController {
 
     @GetMapping("/register")
     public String showSignupForm(Model model){
-        Users user = new Users();
+        User user = new User();
         model.addAttribute("user", user);
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute Users user, @RequestParam("profilePicture") MultipartFile profilePicture, Model model){
+    public String registerUser(@ModelAttribute User user, @RequestParam("profilePicture") MultipartFile profilePicture, Model model){
         // Save the profile picture if provided
         if (!profilePicture.isEmpty()) {
             // Save the profile picture file and set the path in the user object
@@ -52,7 +52,7 @@ public class UserController {
     @GetMapping("/profile")
     public String showProfile(Model model, HttpSession session) {
         // Retrieve the user object from the session
-        Users user = (Users) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");
 
         // Check if the user object is null
         if (user == null) {
@@ -67,14 +67,14 @@ public class UserController {
 
     @GetMapping("/login")
     public String showLoginForm(Model model){
-        Users user = new Users();
+        User user = new User();
         model.addAttribute("user", user);
         return "login";
     }
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute Users user, Model model, HttpServletRequest request){
+    public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request){
         // Retrieve the user object from the database based on the provided username
-        Users userFromDb = userDao.findByUsername(user.getUsername());
+        User userFromDb = userDao.findByUsername(user.getUsername());
 
         // Check if the user exists and compare the passwords
         if (userFromDb != null && encoder.matches(user.getPassword(), userFromDb.getPassword())) {

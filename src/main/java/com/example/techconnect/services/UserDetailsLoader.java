@@ -1,6 +1,6 @@
 package com.example.techconnect.services;
 
-import com.example.techconnect.models.Users;
+import com.example.techconnect.models.User;
 import com.example.techconnect.models.UserWithRoles;
 import com.example.techconnect.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +23,7 @@ public class UserDetailsLoader implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // The findByUsername method needs to be established in our UserRepository
-        Users user = users.findByUsername(username);
+        User user = users.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("No user found for " + username);
         }

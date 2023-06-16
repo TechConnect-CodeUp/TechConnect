@@ -22,26 +22,15 @@ public class Attendee {
     private Long id;
 
 
-    // We will uncomment this line of after a successfull merge
+    // Entity Relationships
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-//    @ManyToOne
-//    @JoinColumn(name = "event_id")
-//    private Event event;
-//
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
-
-
-
-
-
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
 
 
 }
