@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.catalina.User;
 
 
 @NoArgsConstructor
@@ -16,31 +15,22 @@ import org.apache.catalina.User;
 
 @Entity
 @Table(name = "attendees")
-public class Attendees {
+public class Attendee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long attendeeId;
+    private Long id;
 
 
-    // We will uncomment this line of after a successfull merge
+    // Entity Relationships
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-//    @ManyToOne
-//    @JoinColumn(name = "event_id")
-//    private Event event;
-//
-//
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
-
-
-
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
 
 
 }
