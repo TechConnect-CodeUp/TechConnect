@@ -1,8 +1,11 @@
 package com.example.techconnect.controllers;
 
 import com.example.techconnect.models.Event;
+import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
+import com.example.techconnect.repositories.UserRepository;
 import com.example.techconnect.utilities.AddressUtility;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +19,19 @@ public class EventController {
 
     private final AddressUtility addressUtility;
 
+    private final UserRepository userRepository;
 
-    public EventController(EventRepository eventRepository, AddressUtility addressUtility) {
+
+
+
+
+    public EventController(EventRepository eventRepository, AddressUtility addressUtility,UserRepository userRepository) {
 
         this.eventRepository = eventRepository;
         this.addressUtility = addressUtility;
+        this.userRepository = userRepository;
+
+
 
 
     }
@@ -29,29 +40,6 @@ public class EventController {
     // I want to login to the website
 
     // The page should be displayed to the user
-
-//    <!--The naming convention has been changed from /event to /event/create-->
-
-    @GetMapping("/event/create")
-    public String showEventForm(Model model) {
-
-
-        model.addAttribute("event", new Event());
-
-        return "event";
-    }
-
-    @PostMapping("/event/create")
-
-    public String createEvent(@ModelAttribute Event event) {
-
-        eventRepository.save(event);
-
-        return "event";
-
-
-    }
-
 
     // We need the user's session key from when they login
 
@@ -69,4 +57,43 @@ public class EventController {
     // Creates a new Event Object
 
     // Saves it to the DB
+
+//    <!--The naming convention has been changed from /event to /event/create-->
+
+    @GetMapping("/event/create")
+    public String showEventForm(Model model) {
+
+
+        model.addAttribute("event", new Event());
+
+        return "event";
+    }
+
+    @PostMapping("/event/create")
+
+    public String createEvent(@ModelAttribute Event event) {
+
+        // This method must also save the hostid and the interest id once they have logged in;
+
+        // This piece of code allows us to access the authenticated User;
+
+//        (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+
+
+
+
+
+
+
+        eventRepository.save(event);
+
+        return "event";
+
+        // The user should be redirected to their profile page so that the they can view their newly created event
+
+
+    }
+
+
 }
