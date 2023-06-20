@@ -52,14 +52,14 @@ public class SecurityConfiguration {
                         .requestMatchers("/event/create", "/event/*/edit","/profile", "/editProfile").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", "/events", "/events/*", "/register", "/login", "/deleteProfile").permitAll()
+                        .requestMatchers("/", "/events", "/events/*", "/SignUpPage", "/LoginPage", "/deleteProfile").permitAll()
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )
                 /* Login configuration */
-                .formLogin((login) -> login.loginPage("/login").defaultSuccessUrl("/profile"))
+                .formLogin((login) -> login.loginPage("/LoginPage").defaultSuccessUrl("/profile"))
                 /* Logout configuration */
-                .logout((logout) -> logout.logoutSuccessUrl("/login?logout"))
+                .logout((logout) -> logout.logoutSuccessUrl("/LoginPage?logout"))
                 .httpBasic(withDefaults());
         return http.build();
     }
