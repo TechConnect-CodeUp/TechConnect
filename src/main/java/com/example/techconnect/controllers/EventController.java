@@ -35,6 +35,8 @@ public class EventController {
     @GetMapping("/event")
     public String showEventForm(Model model) {
 
+        ////////
+
         model.addAttribute("event", new Event());
 
         return "event";
