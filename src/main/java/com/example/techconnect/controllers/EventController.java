@@ -1,6 +1,7 @@
 package com.example.techconnect.controllers;
 
 import com.example.techconnect.models.Event;
+import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.utilities.AddressUtility;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 public class EventController {
@@ -53,7 +57,15 @@ public class EventController {
 
     }
 
+    @GetMapping("/events.json")
+        public @ResponseBody List<Event> viewEventsInJson(){
+        return eventRepository.findAll();
+    }
 
+    @GetMapping("/events/ajax")
+    public String viewAllEventsWithAjax() {
+        return "/apitester";
+    }
 
 
 

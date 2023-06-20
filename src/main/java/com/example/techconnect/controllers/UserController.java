@@ -11,6 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+import java.util.Optional;
+=======
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
+>>>>>>> e5904235e2b0dcc904245bf48022845ba2b43f45
 
 @Controller
 public class UserController {
@@ -66,6 +73,17 @@ public class UserController {
         model.addAttribute("user", user);
         return "redirect:/profile";
     }
+
+//    @GetMapping("/user.json")
+//    public @ResponseBody List<User> viewUsersInJson(){
+//          return userDao.findAll();
+//    }
+
+//    @GetMapping("/users/ajax")
+//    public String viewAllUsersWithAjax() {
+//        return "users/ajax";
+//    }
+
 
 
 

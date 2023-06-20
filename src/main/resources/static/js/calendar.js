@@ -87,19 +87,33 @@ document.addEventListener('DOMContentLoaded', function() {
         },
     ]
 
-    eventMarkers.forEach(function (mapboxInfo) {
-        geocode(mapboxInfo.address, MAPBOXAP_TOK).then(function (result) {
-            let mapCenter = ([result[0], result[1]])
-            map.setCenter(mapCenter);
-            new mapboxgl.Popup().setLngLat(mapCenter).setHTML("<p>" + mapboxInfo.title + "</p>").addTo(map)
-            marker = new mapboxgl.Marker()
-                .setLngLat(mapCenter)
-                .addTo(map)
+
+    (function($) {
+        var request = $.ajax({'url': '/events.json'});
+        request.done(function (events) {
+            var html = '';
+            events.forEach(function(event) {
+                html += '<div>';
+                html += '<h1>' + event.title + '</h1>';
+                html += '<p>' + event.description + '</p>';
+                html += '</div>';
+            });
+            $('#info').html(html);
         });
-    });
+    })(jQuery);
 
 
 
+    // eventMarkers.forEach(function (mapboxInfo) {
+    //     geocode(mapboxInfo.address, MAPBOXAP_TOK).then(function (result) {
+    //         let mapCenter = ([result[0], result[1]])
+    //         map.setCenter(mapCenter);
+    //         new mapboxgl.Popup().setLngLat(mapCenter).setHTML("<p>" + mapboxInfo.title + "</p>").addTo(map)
+    //         marker = new mapboxgl.Marker()
+    //             .setLngLat(mapCenter)
+    //             .addTo(map)
+    //     });
+    // });
 
 
 
