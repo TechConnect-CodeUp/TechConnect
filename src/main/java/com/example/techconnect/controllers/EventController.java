@@ -1,6 +1,7 @@
 package com.example.techconnect.controllers;
 
 import com.example.techconnect.models.Event;
+import com.example.techconnect.models.Interest;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.UserRepository;
@@ -22,16 +23,11 @@ public class EventController {
     private final UserRepository userRepository;
 
 
-
-
-
-    public EventController(EventRepository eventRepository, AddressUtility addressUtility,UserRepository userRepository) {
+    public EventController(EventRepository eventRepository, AddressUtility addressUtility, UserRepository userRepository) {
 
         this.eventRepository = eventRepository;
         this.addressUtility = addressUtility;
         this.userRepository = userRepository;
-
-
 
 
     }
@@ -77,13 +73,15 @@ public class EventController {
 
         // This piece of code allows us to access the authenticated User;
 
-//        (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // We are setting the whole User Object to the Event table and JPA will only save the Id in the whole database
+
+        event.setHost(loggedIn);
 
 
 
-
-
-
+        event.setInterest();
 
 
         eventRepository.save(event);

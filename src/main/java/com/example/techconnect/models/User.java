@@ -67,7 +67,7 @@ public class User {
     private List<Comment>comments = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "host")
     private List<Event> events = new ArrayList<>();
 
 

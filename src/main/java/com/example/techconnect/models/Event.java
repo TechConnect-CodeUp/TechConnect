@@ -45,7 +45,10 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name="host_id")
-    private User user;
+
+    // This is now considered to bes host and not user
+    private User host;
+
 
     @ManyToOne
     @JoinColumn(name="interest_id")
