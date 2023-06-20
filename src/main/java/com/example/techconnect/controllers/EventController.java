@@ -17,12 +17,10 @@ public class EventController {
     private final AddressUtility addressUtility;
 
 
-
-    public EventController(EventRepository eventRepository,AddressUtility addressUtility) {
+    public EventController(EventRepository eventRepository, AddressUtility addressUtility) {
 
         this.eventRepository = eventRepository;
         this.addressUtility = addressUtility;
-
 
 
     }
@@ -32,34 +30,27 @@ public class EventController {
 
     // The page should be displayed to the user
 
-    @GetMapping("/event")
+//    <!--The naming convention has been changed from /event to /event/create-->
+
+    @GetMapping("/event/create")
     public String showEventForm(Model model) {
 
-        ////////
 
         model.addAttribute("event", new Event());
 
         return "event";
     }
 
-    @PostMapping("/event")
+    @PostMapping("/event/create")
 
-    public String createEvent(@ModelAttribute Event event){
+    public String createEvent(@ModelAttribute Event event) {
 
         eventRepository.save(event);
 
         return "event";
 
 
-
-
     }
-
-
-
-
-
-
 
 
     // We need the user's session key from when they login
