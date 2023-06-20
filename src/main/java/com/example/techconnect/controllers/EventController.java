@@ -32,21 +32,21 @@ public class EventController {
 
     // The page should be displayed to the user
 
-    @GetMapping("/event")
+    @GetMapping("/event/create")
     public String showEventForm(Model model) {
 
         model.addAttribute("event", new Event());
 
-        return "event";
+        return "/event/create";
     }
 
-    @PostMapping("/event")
+    @PostMapping("/event/create")
 
     public String createEvent(@ModelAttribute Event event){
 
         eventRepository.save(event);
 
-        return "event";
+        return "/event/create";
 
 
 
