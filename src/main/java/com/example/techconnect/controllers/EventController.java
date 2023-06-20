@@ -81,7 +81,7 @@ public class EventController {
 
 
 
-        event.setInterest();
+//        event.setInterest();
 
 
         eventRepository.save(event);

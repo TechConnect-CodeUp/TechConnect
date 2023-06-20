@@ -58,14 +58,21 @@
         <span th:if="${#fields.hasErrors('dateTime')}" th:errors="*{dateTime}"></span>
     </div>
 
-<!--    Create a picklist that allows user to select a value for the type of event they are creating -->
+    <!--    Create a picklist that allows user to select a value for the type of event they are creating -->
+
+    <label>
+        <select name="interest">
+            <option value="">-- Select an Interest  --</option>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+        </select>
+    </label>
 
     <!-- Other event form fields -->
 
     <button type="submit">Submit</button>
 </form>
-
-
 
 
 </body>
