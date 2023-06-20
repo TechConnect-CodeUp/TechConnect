@@ -1,6 +1,9 @@
 package com.example.techconnect.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,25 +22,33 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
+    @JsonProperty("id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
+    @JsonProperty("username")
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
+
+    @JsonProperty("email")
     @Column(nullable = false, unique = true)
     private String email;
 
+    @JsonProperty("firstName")
     @Column(nullable = false)
     private String firstName;
 
+    @JsonProperty("lastName")
     @Column(nullable = false)
     private String lastName;
 
+    @JsonProperty("profilePic")
     @Column(nullable = false)
     private String profilePicture;
 
@@ -56,17 +67,18 @@ public class User {
 
     // Relationship Entity
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<UserInterest> userInterests = new ArrayList<>();
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Discussion> discussions = new ArrayList<>();
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Comment>comments = new ArrayList<>();
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Event> events = new ArrayList<>();
 
