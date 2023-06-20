@@ -41,6 +41,7 @@ public class User {
     @Column(nullable = false)
     private String profilePicture;
 
+
     // This is known as a copy constructor, which will make a clone of the user object.
     public User(User copy) {
         this.id = copy.id;
@@ -49,6 +50,7 @@ public class User {
         this.password = copy.password;
         this.firstName = copy.firstName;
         this.lastName = copy.lastName;
+        this.profilePicture = copy.profilePicture;
     }
 
 
@@ -67,6 +69,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Event> events = new ArrayList<>();
+
 
 
 }
