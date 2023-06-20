@@ -61,15 +61,13 @@ public class UserController {
         // if Authentication failed, redirect back to the login page with an error message
         return "redirect:/login";
     }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "redirect:/login";
+    }
 
 
-
-
-
-
-
-
-    // not allowing to go to /profile when logging in redirects to /login I guess the user is null
     @GetMapping("/profile")
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -95,11 +93,49 @@ public class UserController {
 
     }
 
+    @GetMapping("/editProfile")
+    public String showEditProfileForm(Model model) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", loggedInUser);
+        return "editProfile"; // Return the name of the template
+    }
+    @PostMapping("/editProfile")
+    public String editProfile(@ModelAttribute User user, Model model) {
+        // Retrieve the currently logged-in user
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User editedUser = userDao.findById(loggedInUser.getId()).get();
+
+        // Update the relevant fields of the logged-in user with the new information
+
+        editedUser.setEmail(user.getEmail());
+        editedUser.setFirstName(user.getFirstName());
+        editedUser.setLastName(user.getLastName());
+        editedUser.setUsername(user.getUsername());
 
 
+        // Check if the provided password matches the user's current password
+        if (encoder.matches(user.getPassword(), editedUser.getPassword())) {
+            // Save the updated user to the database
+            userDao.save(editedUser);
+            model.addAttribute("user", editedUser);
+            return "redirect:/profile";
+        }
 
+        // If the provided password doesn't match, redirect back to the profile page with an error message
+        return "redirect:/profile?error";
+    }
 
+    @PostMapping("/deleteProfile")
+    public String deleteProfile() {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User deletedUser = userDao.findById(loggedInUser.getId()).get();
 
+        // Perform the deletion operation on the user's profile using the userRepository
+        userDao.delete(deletedUser);
+
+        // Redirect to a different page after the deletion, e.g., the homepage
+        return "redirect:/login";
+    }
 
 
 }
