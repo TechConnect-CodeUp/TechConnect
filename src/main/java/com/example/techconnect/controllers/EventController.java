@@ -20,17 +20,17 @@ public class EventController {
 
     private final EventRepository eventRepository;
 
-    private final AddressUtility addressUtility;
+//    private final AddressUtility addressUtility;
 
     private final UserRepository userRepository;
 
     private final InterestRepository interestRepository;
 
 
-    public EventController(EventRepository eventRepository, AddressUtility addressUtility, UserRepository userRepository, InterestRepository interestRepository) {
+    public EventController(EventRepository eventRepository,  UserRepository userRepository, InterestRepository interestRepository) {
 
         this.eventRepository = eventRepository;
-        this.addressUtility = addressUtility;
+//        this.addressUtility = addressUtility;
         this.userRepository = userRepository;
         this.interestRepository = interestRepository;
 
@@ -92,12 +92,18 @@ public class EventController {
 
         eventRepository.save(event);
 
-        return "event";
-
+        return "redirect:/profile";
         // The user should be redirected to their profile page so that the they can view their newly created event
 
 
     }
+
+
+    // The use should be able to view the event they created
+    // Create a method that only lets the loggedIn user see all the events they have created
+
+
+
 
 
 }

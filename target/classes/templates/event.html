@@ -22,35 +22,33 @@
         <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
     </div>
 
-    <div>
-        <label for="location">Location:</label>
-        <input type="text" id="location" th:field="*{location}" required>
-        <!--        <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>-->
-    </div>
+        <div>
+            <label for="location">Location:</label>
+            <input type="text" id="location" th:field="*{location}" required>
+            <!--        <span th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>-->
+        </div>
 
-    <!--    <div>-->
-    <!--        <label for="street">Street:</label>-->
-    <!--        <input type="text" id="street" th:field="*{street}" required>-->
-    <!--        <span th:if="${#fields.hasErrors('street')}" th:errors="*{street}"></span>-->
-    <!--    </div>-->
 
-    <!--    <div>-->
-    <!--        <label for="city">City:</label>-->
-    <!--        <input type="text" id="city" th:field="*{city}" required>-->
-    <!--        <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>-->
-    <!--    </div>-->
+<!--    <div>-->
+<!--        <label for="street">Street:</label>-->
+<!--        <input type="text" id="street" name="street" required>-->
+<!--    </div>-->
 
-    <!--    <div>-->
-    <!--        <label for="state">State:</label>-->
-    <!--        <input type="text" id="state" th:field="*{state}" required>-->
-    <!--        <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>-->
-    <!--    </div>-->
+<!--    <div>-->
+<!--        <label for="city">City:</label>-->
+<!--        <input type="text" id="city" name="city" required>-->
+<!--    </div>-->
 
-    <!--    <div>-->
-    <!--        <label for="country">Country:</label>-->
-    <!--        <input type="text" id="country" th:field="*{country}" required>-->
-    <!--        <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></span>-->
-    <!--    </div>-->
+<!--    <div>-->
+<!--        <label for="state">State:</label>-->
+<!--        <input type="text" id="state" name="state" required>-->
+<!--    </div>-->
+
+<!--    <div>-->
+<!--        <label for="country">Country:</label>-->
+<!--        <input type="text" id="country" name="country" required>-->
+<!--    </div>-->
+
 
     <div>
         <label for="dateTime">Date and Time:</label>
@@ -66,12 +64,6 @@
             <option th:each="interest : ${interests}" th:value="${interest.id}" th:text="${interest.interest}"></option>
         </select>
     </label>
-
-
-
-
-
-
 
 
     <!-- Other event form fields -->

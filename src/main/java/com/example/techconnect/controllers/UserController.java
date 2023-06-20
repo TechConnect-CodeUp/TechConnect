@@ -25,14 +25,14 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showSignupForm(Model model){
+    public String showSignupForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, Model model){
+    public String registerUser(@ModelAttribute User user, Model model) {
         // Hash the password
         String hash = encoder.encode(user.getPassword());
         // Set the hashed password BEFORE saving to the database
@@ -42,7 +42,6 @@ public class UserController {
         model.addAttribute("user", user); // Add the user object to the model
         return "redirect:/profile";
     }
-
 
 
     @PostMapping("/login")
@@ -63,19 +62,13 @@ public class UserController {
     }
 
 
-
-
-
-
-
-
     // not allowing to go to /profile when logging in redirects to /login I guess the user is null
     @GetMapping("/profile")
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         model.addAttribute("user", loggedInUser);
-       return "profile";
+        return "profile";
     }
 
 
@@ -84,7 +77,7 @@ public class UserController {
         // Retrieve the user object from the database based on the provided username
         User authenticatedUser = userDao.findByUsername(user.getUsername());
         // Check if the user exists and the password matches
-        if (authenticatedUser!= null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
+        if (authenticatedUser != null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
             // Authentication successful, set the user attribute in the session
             model.addAttribute("user", authenticatedUser);
             return "profile";
@@ -94,12 +87,6 @@ public class UserController {
         return "redirect:/login";
 
     }
-
-
-
-
-
-
 
 
 }
