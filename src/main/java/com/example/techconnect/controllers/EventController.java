@@ -4,6 +4,7 @@ import com.example.techconnect.models.Event;
 import com.example.techconnect.models.Interest;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
+import com.example.techconnect.repositories.InterestRepository;
 import com.example.techconnect.repositories.UserRepository;
 import com.example.techconnect.utilities.AddressUtility;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EventController {
@@ -22,12 +24,15 @@ public class EventController {
 
     private final UserRepository userRepository;
 
+    private final InterestRepository interestRepository;
 
-    public EventController(EventRepository eventRepository, AddressUtility addressUtility, UserRepository userRepository) {
+
+    public EventController(EventRepository eventRepository, AddressUtility addressUtility, UserRepository userRepository, InterestRepository interestRepository) {
 
         this.eventRepository = eventRepository;
         this.addressUtility = addressUtility;
         this.userRepository = userRepository;
+        this.interestRepository = interestRepository;
 
 
     }
@@ -59,6 +64,11 @@ public class EventController {
     @GetMapping("/event/create")
     public String showEventForm(Model model) {
 
+        // This will display the list of all the interest in our database
+
+
+        model.addAttribute("interests", interestRepository.findAll());
+
 
         model.addAttribute("event", new Event());
 
@@ -78,10 +88,6 @@ public class EventController {
         // We are setting the whole User Object to the Event table and JPA will only save the Id in the whole database
 
         event.setHost(loggedIn);
-
-
-
-//        event.setInterest();
 
 
         eventRepository.save(event);
