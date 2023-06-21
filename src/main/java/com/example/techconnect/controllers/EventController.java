@@ -10,11 +10,7 @@ import com.example.techconnect.utilities.AddressUtility;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
@@ -152,6 +148,23 @@ public class EventController {
 //
 //        return "redirect:/events/" + event.getId();
 //    }
+
+    // Create a method that will edit events
+
+    // ALl new mappings within Controllers need to be added to the Security CConfiguration Class
+
+    @GetMapping("/event/edit/{id}")
+    public String showEditEventPage(@PathVariable long id, Model model) {
+
+        Event event  = eventRepository.findById(id).get();
+        System.out.println(event.getEventId());
+        model.addAttribute("event",event);
+
+        return "event/edit";
+
+    }
+
+
 
 
 
