@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -34,7 +35,7 @@ public class EventController {
     public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository) {
 
         this.eventRepository = eventRepository;
-//        this.addressUtility = addressUtility;
+//      this.addressUtility = addressUtility;
         this.userRepository = userRepository;
         this.interestRepository = interestRepository;
 
@@ -107,7 +108,7 @@ public class EventController {
 
         model.addAttribute("event", new Event());
 
-        return "event";
+        return "/event/create";
     }
 
     @PostMapping("/event/create")
@@ -135,7 +136,23 @@ public class EventController {
 
 
     // The use should be able to view the event they created
-    // Create a method that only lets the loggedIn user see all the events they have created
+    // Create a method that only lets the loggedIn user see all the events they have created. We will use a loop in the HTML file to accomplish this.
+
+//    @GetMapping("/profile")
+//
+//    public String getUserEvents(Model model) {
+//
+//        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//
+//        List<Event> events = eventRepository.findAllById(Collections.singleton(loggedIn.getId()));
+//
+//        model.addAttribute("events", events);
+//
+//        return "/profile";
+//
+//
+//    }
 
 
 }

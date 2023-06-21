@@ -78,13 +78,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Comment>comments = new ArrayList<>();
 
-<<<<<<< HEAD
 
-    @OneToMany(mappedBy = "host")
-=======
+
     @JsonManagedReference
-    @OneToMany(mappedBy = "user")
->>>>>>> main
+//    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "host")
+
+
     private List<Event> events = new ArrayList<>();
 
 

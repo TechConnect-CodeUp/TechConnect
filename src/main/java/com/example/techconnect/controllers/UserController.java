@@ -1,5 +1,6 @@
 package com.example.techconnect.controllers;
 
+import com.example.techconnect.models.Event;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,12 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-=======
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
->>>>>>> e5904235e2b0dcc904245bf48022845ba2b43f45
 
 @Controller
 public class UserController {
@@ -39,28 +39,19 @@ public class UserController {
         this.encoder = encoder;
     }
 
-<<<<<<< HEAD
-    @GetMapping("/register")
-=======
     @GetMapping("/SignUpPage")
->>>>>>> main
     public String showSignupForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "/SignUpPage";
     }
 
-<<<<<<< HEAD
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, Model model) {
-=======
     @PostMapping("/SignUpPage")
     public String registerUser(
             @ModelAttribute User user,
             Model model,
             @RequestParam(name = "image-upload") MultipartFile profilePicture
     ) {
->>>>>>> main
         // Hash the password
         String hash = encoder.encode(user.getPassword());
         // Set the hashed password BEFORE saving to the database
@@ -93,14 +84,9 @@ public class UserController {
 //        return "users/ajax";
 //    }
 
-<<<<<<< HEAD
-    @PostMapping("/login")
-=======
-
-
 
     @PostMapping("/LoginPage")
->>>>>>> main
+
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
 
         // Retrieve the user object from the database based on the provided username
@@ -116,6 +102,7 @@ public class UserController {
         // if Authentication failed, redirect back to the login page with an error message
         return "redirect:LoginPage";
     }
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
@@ -123,22 +110,25 @@ public class UserController {
     }
 
 
-<<<<<<< HEAD
     // not allowing to go to /profile when logging in redirects to /login I guess the user is null
-=======
->>>>>>> main
+
     @GetMapping("/profile")
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         model.addAttribute("user", loggedInUser);
-<<<<<<< HEAD
-        return "profile";
-=======
-        return "/profile";
->>>>>>> main
-    }
 
+        // The List collection stores all the events for the loggedInUser object which will then be displayed on their profile
+
+
+        List<Event> events = eventRepository.findAllById(Collections.singleton(loggedInUser.getId()));
+
+        model.addAttribute("events", events);
+
+        return "profile";
+
+
+    }
 
 
     @PostMapping("/profile")
@@ -163,6 +153,7 @@ public class UserController {
         model.addAttribute("user", loggedInUser);
         return "/editProfile"; // Return the name of the template
     }
+
     @PostMapping("/editProfile")
     public String editProfile(@ModelAttribute User user, Model model) {
         // Retrieve the currently logged-in user
@@ -177,8 +168,6 @@ public class UserController {
         editedUser.setUsername(user.getUsername());
         editedUser.setProfilePicture(user.getProfilePicture());
 
-<<<<<<< HEAD
-=======
 
         // Check if the provided password matches the user's current password
         if (encoder.matches(user.getPassword(), editedUser.getPassword())) {
@@ -203,7 +192,4 @@ public class UserController {
         // Redirect to a different page after the deletion, e.g., the homepage
         return "redirect:/LoginPage";
     }
-
-
->>>>>>> main
 }
