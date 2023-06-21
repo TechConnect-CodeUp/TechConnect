@@ -2,6 +2,7 @@ package com.example.techconnect.controllers;
 
 import com.example.techconnect.models.Event;
 import com.example.techconnect.models.User;
+import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,12 +32,16 @@ public class UserController {
     private final UserRepository userDao;
     private final PasswordEncoder encoder;
 
+    // Injecting an EventRepository
+    private final EventRepository eventRepository;
+
     @Value("${file-upload-path}")
     private String uploadPath;
 
-    public UserController(UserRepository userDao, PasswordEncoder encoder) {
+    public UserController(UserRepository userDao, PasswordEncoder encoder, EventRepository eventRepository) {
         this.userDao = userDao;
         this.encoder = encoder;
+        this.eventRepository = eventRepository;
     }
 
     @GetMapping("/SignUpPage")
@@ -121,7 +126,7 @@ public class UserController {
         // The List collection stores all the events for the loggedInUser object which will then be displayed on their profile
 
 
-        List<Event> events = eventRepository.findAllById(Collections.singleton(loggedInUser.getId()));
+        List<Event> events = eventRepository.findAllByHostId(loggedInUser.getId());
 
         model.addAttribute("events", events);
 

@@ -34,6 +34,35 @@
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>
+
+    <!--    This form displays evnets to the user -->
+
+        <h2>Your Events:</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Date and Time</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Tittle</th>
+            </tr>
+            </thead>
+            <tbody>
+<!--            ${events} is refering to the object instance -->
+            <tr th:each="event : ${events}">
+                <td th:text="${event.title}"></td>
+                <td th:text="${event.description}"></td>
+                <td th:text="${event.location}"></td>
+                <td th:text="${event.dateTime}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Add other form fields if needed -->
+
+
+
 </div>
 </body>
 </html>
