@@ -88,19 +88,19 @@ document.addEventListener('DOMContentLoaded', function() {
     ]
 
 
-    (function($) {
-        var request = $.ajax({'url': '/events.json'});
-        request.done(function (events) {
-            var html = '';
-            events.forEach(function(event) {
-                html += '<div>';
-                html += '<h1>' + event.title + '</h1>';
-                html += '<p>' + event.description + '</p>';
-                html += '</div>';
-            });
-            $('#info').html(html);
-        });
-    })(jQuery);
+    // (function($) {
+    //     var request = $.ajax({'url': '/events.json'});
+    //     request.done(function (events) {
+    //         var html = '';
+    //         events.forEach(function(event) {
+    //             html += '<div>';
+    //             html += '<h1>' + event.title + '</h1>';
+    //             html += '<p>' + event.description + '</p>';
+    //             html += '</div>';
+    //         });
+    //         $('#info').html(html);
+    //     });
+    // })(jQuery);
 
 
 

@@ -57,15 +57,15 @@ public class EventController {
 
     }
 
-    @GetMapping("/events.json")
-        public @ResponseBody List<Event> viewEventsInJson(){
-        return eventRepository.findAll();
-    }
-
-    @GetMapping("/events/ajax")
-    public String viewAllEventsWithAjax() {
-        return "/apitester";
-    }
+//    @GetMapping("/events.json")
+//        public @ResponseBody List<Event> viewEventsInJson(){
+//        return eventRepository.findAll();
+//    }
+//
+//    @GetMapping("/events/ajax")
+//    public String viewAllEventsWithAjax() {
+//        return "/apitester";
+//    }
 
 
 
