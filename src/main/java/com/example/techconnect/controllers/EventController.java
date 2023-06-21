@@ -1,7 +1,7 @@
 package com.example.techconnect.controllers;
 
 import com.example.techconnect.models.Event;
-import com.example.techconnect.models.Interest;
+
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.InterestRepository;
@@ -13,7 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 
 @Controller
 public class EventController {
@@ -27,7 +31,7 @@ public class EventController {
     private final InterestRepository interestRepository;
 
 
-    public EventController(EventRepository eventRepository,  UserRepository userRepository, InterestRepository interestRepository) {
+    public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository) {
 
         this.eventRepository = eventRepository;
 //        this.addressUtility = addressUtility;
@@ -41,6 +45,37 @@ public class EventController {
     // I want to login to the website
 
     // The page should be displayed to the user
+
+
+//    @GetMapping("/event/create")
+//    public String showEventForm(Model model) {
+//
+//        model.addAttribute("event", new Event());
+//
+//        return "/event/create";
+//    }
+//
+//    @PostMapping("/event/create")
+//
+//    public String createEvent(@ModelAttribute Event event) {
+//
+//        eventRepository.save(event);
+//
+//        return "/event/create";
+//
+//
+//    }
+
+    @GetMapping("/events.json")
+    public @ResponseBody List<Event> viewEventsInJson() {
+        return eventRepository.findAll();
+    }
+
+    @GetMapping("/events/ajax")
+    public String viewAllEventsWithAjax() {
+        return "/apitester";
+    }
+
 
     // We need the user's session key from when they login
 
@@ -101,9 +136,6 @@ public class EventController {
 
     // The use should be able to view the event they created
     // Create a method that only lets the loggedIn user see all the events they have created
-
-
-
 
 
 }
