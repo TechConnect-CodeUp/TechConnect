@@ -134,25 +134,25 @@ public class EventController {
 
     }
 
+    // Create a method that allows the user to edit the events that they created
 
-    // The use should be able to view the event they created
-    // Create a method that only lets the loggedIn user see all the events they have created. We will use a loop in the HTML file to accomplish this.
-
-//    @GetMapping("/profile")
-//
-//    public String getUserEvents(Model model) {
-//
-//        User loggedIn = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    @PostMapping("/edit")
+//    public String editEvents(@ModelAttribute Event event) {
 //
 //
-//        List<Event> events = eventRepository.findAllById(Collections.singleton(loggedIn.getId()));
-//
-//        model.addAttribute("events", events);
-//
-//        return "/profile";
 //
 //
+//
+//        // Update the event with the form data
+//        event.setTitle(eventForm.getTitle());
+//        event.setDescription(eventForm.getDescription());
+//        event.setDate(eventForm.getDate());
+//
+//        eventService.saveEvent(event);
+//
+//        return "redirect:/events/" + event.getId();
 //    }
+
 
 
 }
