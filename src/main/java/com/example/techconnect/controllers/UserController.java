@@ -39,19 +39,28 @@ public class UserController {
         this.encoder = encoder;
     }
 
+<<<<<<< HEAD
+    @GetMapping("/register")
+=======
     @GetMapping("/SignUpPage")
+>>>>>>> main
     public String showSignupForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "/SignUpPage";
     }
 
+<<<<<<< HEAD
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user, Model model) {
+=======
     @PostMapping("/SignUpPage")
     public String registerUser(
             @ModelAttribute User user,
             Model model,
             @RequestParam(name = "image-upload") MultipartFile profilePicture
     ) {
+>>>>>>> main
         // Hash the password
         String hash = encoder.encode(user.getPassword());
         // Set the hashed password BEFORE saving to the database
@@ -84,10 +93,14 @@ public class UserController {
 //        return "users/ajax";
 //    }
 
+<<<<<<< HEAD
+    @PostMapping("/login")
+=======
 
 
 
     @PostMapping("/LoginPage")
+>>>>>>> main
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
 
         // Retrieve the user object from the database based on the provided username
@@ -110,12 +123,20 @@ public class UserController {
     }
 
 
+<<<<<<< HEAD
+    // not allowing to go to /profile when logging in redirects to /login I guess the user is null
+=======
+>>>>>>> main
     @GetMapping("/profile")
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         model.addAttribute("user", loggedInUser);
+<<<<<<< HEAD
+        return "profile";
+=======
         return "/profile";
+>>>>>>> main
     }
 
 
@@ -125,7 +146,7 @@ public class UserController {
         // Retrieve the user object from the database based on the provided username
         User authenticatedUser = userDao.findByUsername(user.getUsername());
         // Check if the user exists and the password matches
-        if (authenticatedUser!= null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
+        if (authenticatedUser != null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
             // Authentication successful, set the user attribute in the session
             model.addAttribute("user", authenticatedUser);
             return "/profile";
@@ -156,6 +177,8 @@ public class UserController {
         editedUser.setUsername(user.getUsername());
         editedUser.setProfilePicture(user.getProfilePicture());
 
+<<<<<<< HEAD
+=======
 
         // Check if the provided password matches the user's current password
         if (encoder.matches(user.getPassword(), editedUser.getPassword())) {
@@ -182,4 +205,5 @@ public class UserController {
     }
 
 
+>>>>>>> main
 }

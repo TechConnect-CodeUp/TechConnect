@@ -50,7 +50,11 @@ public class SecurityConfiguration {
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
 <<<<<<< HEAD
+                        .requestMatchers("/event/create", "/event/*/edit","/profile").authenticated()
+=======
+<<<<<<< HEAD
                         .requestMatchers("/events/create", "/events/*/edit","/profile","/events/ajax").authenticated()
+>>>>>>> main
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
                         .requestMatchers("/", "/events", "/events/*", "/register", "/login","/events.json","/events/ajax").permitAll()

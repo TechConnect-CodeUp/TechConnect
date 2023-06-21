@@ -56,7 +56,10 @@ public class Event {
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name="host_id")
-    private User user;
+
+    // This is now considered to bes host and not user
+    private User host;
+
 
     @ManyToOne
     @JsonBackReference
