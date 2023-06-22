@@ -97,6 +97,7 @@ public class EventController {
 
         eventRepository.save(event);
 
+
         return "redirect:/profile";
 
 
@@ -123,6 +124,7 @@ public class EventController {
 
 
         // Update the event with the form data
+
         event.setHost(event.getHost());
         event.setInterest(event.getInterest());
         event.setEventId(id);

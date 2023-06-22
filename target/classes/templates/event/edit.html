@@ -22,6 +22,12 @@
     <label for="location">Location:</label>
     <input type="text" id="location" th:field="*{location}"/>
 
+<!--    Interest and HostID-->
+
+    <input type="hidden" th:hidden="${event}" th:field="*{interest}"/>
+    <input type="hidden" th:hidden="${event}" th:field="*{host}"/>
+
+
     <button type="submit">Save</button>
 </form>
 
