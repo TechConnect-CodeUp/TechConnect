@@ -58,6 +58,17 @@
             <td><a th:href="@{'/event/edit/' + ${event.eventId}}">
                 <button>Edit</button>
             </a></td>
+            <td>
+                <form th:action="@{/event/delete/{id}(id=${event.eventId})}" method="post">
+
+                    <input type="hidden" name="hostId" th:value="${event.host}"/>
+
+                    <input type="hidden" name="interestId" th:value="${event.interest}"/>
+
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+
         </tr>
         </tbody>
     </table>

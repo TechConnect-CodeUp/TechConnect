@@ -56,7 +56,7 @@ public class SecurityConfiguration {
 
 
                         .requestMatchers("/event/create", "/event/*/edit","/profile","/event/edit").authenticated()
-                        .requestMatchers("/events/create", "/events/*/edit","/profile","/events/ajax","/event/edit/{id}").authenticated()
+                        .requestMatchers("/events/create", "/events/*/edit","/profile","/events/ajax","/event/edit/{id}","/event/delete/{id}").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
                         .requestMatchers("/", "/events", "/events/*", "/register", "/login","/events.json","/events/ajax").permitAll()

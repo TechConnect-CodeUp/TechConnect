@@ -2,6 +2,7 @@ package com.example.techconnect.controllers;
 
 import com.example.techconnect.models.Event;
 
+import com.example.techconnect.models.Interest;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.InterestRepository;
@@ -120,7 +121,7 @@ public class EventController {
 
 
     @PostMapping("/event/edit/{id}")
-    public String editEvents(@ModelAttribute Event event, @PathVariable long id ) {
+    public String editEvents(@ModelAttribute Event event, @PathVariable long id) {
 
 
         // Update the event with the form data
@@ -138,6 +139,19 @@ public class EventController {
 
 
         return "redirect:/profile";
+    }
+
+
+    @PostMapping("/event/delete/{id}")
+
+    public String deleteEvent(@ModelAttribute Event event, @PathVariable long id) {
+
+        event.setHost(new User());
+        event.setInterest(new Interest());
+        eventRepository.deleteById(id);
+        return "redirect:/profile";
+
+
     }
 
 
