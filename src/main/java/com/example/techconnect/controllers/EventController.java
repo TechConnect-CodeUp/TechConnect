@@ -39,30 +39,6 @@ public class EventController {
     }
 
 
-    // I want to login to the website
-
-    // The page should be displayed to the user
-
-
-//    @GetMapping("/event/create")
-//    public String showEventForm(Model model) {
-//
-//        model.addAttribute("event", new Event());
-//
-//        return "/event/create";
-//    }
-//
-//    @PostMapping("/event/create")
-//
-//    public String createEvent(@ModelAttribute Event event) {
-//
-//        eventRepository.save(event);
-//
-//        return "/event/create";
-//
-//
-//    }
-
     @GetMapping("/events.json")
     public @ResponseBody List<Event> viewEventsInJson() {
         return eventRepository.findAll();
@@ -96,8 +72,6 @@ public class EventController {
     @GetMapping("/event/create")
     public String showEventForm(Model model) {
 
-        // This will display the list of all the interest in our database
-
 
         model.addAttribute("interests", interestRepository.findAll());
 
@@ -111,7 +85,6 @@ public class EventController {
 
     public String createEvent(@ModelAttribute Event event) {
 
-        // This method must also save the hostid and the interest id once they have logged in;
 
         // This piece of code allows us to access the authenticated User;
 
@@ -125,47 +98,45 @@ public class EventController {
         eventRepository.save(event);
 
         return "redirect:/profile";
-        // The user should be redirected to their profile page so that the they can view their newly created event
 
 
     }
 
-    // Create a method that allows the user to edit the events that they created
-
-//    @PostMapping("/edit")
-//    public String editEvents(@ModelAttribute Event event) {
-//
-//
-//
-//
-//
-//        // Update the event with the form data
-//        event.setTitle(eventForm.getTitle());
-//        event.setDescription(eventForm.getDescription());
-//        event.setDate(eventForm.getDate());
-//
-//        eventService.saveEvent(event);
-//
-//        return "redirect:/events/" + event.getId();
-//    }
 
     // Create a method that will edit events
 
-    // ALl new mappings within Controllers need to be added to the Security CConfiguration Class
+    // ALl new mappings within Controllers need to be added to the Security Configuration Class
 
     @GetMapping("/event/edit/{id}")
     public String showEditEventPage(@PathVariable long id, Model model) {
 
-        Event event  = eventRepository.findById(id).get();
-        System.out.println(event.getEventId());
-        model.addAttribute("event",event);
+        Event event = eventRepository.findById(id).get();
+        model.addAttribute("event", event);
 
         return "event/edit";
 
     }
 
 
+    @PostMapping("/event/edit/{id}")
+    public String editEvents(@ModelAttribute Event event, @PathVariable long id ) {
 
+
+        // Update the event with the form data
+        event.setHost(event.getHost());
+        event.setInterest(event.getInterest());
+        event.setEventId(id);
+        event.setTitle(event.getTitle());
+        event.setDateTime(event.getDateTime());
+        event.setDescription(event.getDescription());
+        event.setLocation(event.getLocation());
+
+
+        eventRepository.save(event);
+
+
+        return "redirect:/profile";
+    }
 
 
 }

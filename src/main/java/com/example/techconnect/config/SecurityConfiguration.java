@@ -50,9 +50,12 @@ public class SecurityConfiguration {
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
 
-                // Cole, Johnny has recommended to only use one .requestMatchers for .authenticated().Also, I have added another path called /event/edit/{id}
+                // Cole, Johnny has recommended to only use one .requestMatchers for .authenticated().Also, I have added the following paths
+                                // event/edit/{id}
+                                //"/event/edit"
 
-                        .requestMatchers("/event/create", "/event/*/edit","/profile").authenticated()
+
+                        .requestMatchers("/event/create", "/event/*/edit","/profile","/event/edit").authenticated()
                         .requestMatchers("/events/create", "/events/*/edit","/profile","/events/ajax","/event/edit/{id}").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
