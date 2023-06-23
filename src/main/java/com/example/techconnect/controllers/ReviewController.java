@@ -1,5 +1,7 @@
 package com.example.techconnect.controllers;
 
+import com.example.techconnect.models.Attendee;
+import com.example.techconnect.models.Event;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.ReviewRepository;
 import com.example.techconnect.repositories.UserRepository;
@@ -27,16 +29,13 @@ public class ReviewController {
 
     }
 
-
-    @GetMapping('/reviews/view/{id}')
+    @GetMapping("/reviews/view/{id}")
 
     public String showEventReview(@PathVariable long id, Model model) {
 
-        reviewRepository.findAllById(Collections.singleton(id));
+        model.addAttribute("event",eventRepository.findById(id));
 
-
-
-        model.addAttribute("reviews", reviews);
+        model.addAttribute("reviews", reviewRepository.findAllByEventEventId(id));
 
         return "event-reviews";
 

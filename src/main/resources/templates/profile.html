@@ -51,9 +51,8 @@
         <tbody>
         <!--            ${events} is referring to the object instance. The HTML table will forward the event information so that it can be edited -->
         <tr th:each="event : ${events}">
-<!--            <td th:text="${event.title}"></td>-->
             <td>
-                <a th:href="@{'/reviews/view/' + ${event.eventId}}">
+                <a th:href="@{/reviews/view/ + ${event.eventId}}">
                     <span th:text="${event.title}"></span>
                 </a>
             </td>
