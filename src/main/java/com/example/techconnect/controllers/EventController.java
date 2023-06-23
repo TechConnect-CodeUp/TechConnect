@@ -28,13 +28,16 @@ public class EventController {
 
     private final InterestRepository interestRepository;
 
+    private final ReviewController reviewController;
 
-    public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository) {
+
+    public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository,ReviewController reviewController) {
 
         this.eventRepository = eventRepository;
 //      this.addressUtility = addressUtility;
         this.userRepository = userRepository;
         this.interestRepository = interestRepository;
+        this.reviewController = reviewController;
 
 
     }
