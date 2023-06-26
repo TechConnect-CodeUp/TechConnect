@@ -12,8 +12,7 @@ import java.util.List;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    List<Review> findByEvent_EventId(Long eventId);
-    List<Review> findByEvent_AttendeesAndEvent_EventId(List<Attendee> event_attendees, Long event_eventId);
+    List<Review> findAllByEventId(long id);
 
 
 
