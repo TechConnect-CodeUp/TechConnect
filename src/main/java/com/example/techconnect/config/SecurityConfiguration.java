@@ -47,6 +47,19 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
+<<<<<<< HEAD
+                        /* Pages that require authentication
+                         * only authenticated users can create and edit ads */
+                      .requestMatchers("/event/create", "/event/*/edit","/profile").authenticated()
+                      .requestMatchers("/events/create", "/events/*/edit","/profile").authenticated()
+                        /* Pages that do not require authentication
+                         * anyone can visit the home page, register, login, and view ads */
+                        .requestMatchers("/", "/events", "/events/*", "/register", "/login","/events/eventsSearchKeyword","/events/eventsSearch","/events.json","/events/profEvents","/events/ajax","/events/userEvents").permitAll()
+                        .requestMatchers("/event/create", "/event/*/edit","/profile", "/editProfile").authenticated()
+                        /* Pages that do not require authentication
+                         * anyone can visit the home page, register, login, and view ads */
+                        .requestMatchers("/", "/events", "/events/*", "/SignUpPage", "/LoginPage", "/deleteProfile").permitAll()
+=======
 
                         .requestMatchers("/events/create", "/events/*/edit","/profile","/events/ajax", "/editProfile").authenticated()
 
@@ -54,6 +67,7 @@ public class SecurityConfiguration {
                          * anyone can visit the home page, register, login, and view ads */
                         .requestMatchers("/", "/events", "/events/*", "/SignUpPage", "/LoginPage","/events.json","/events/ajax", "/deleteProfile").permitAll()
 
+>>>>>>> main
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )

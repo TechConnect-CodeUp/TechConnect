@@ -10,11 +10,7 @@ import com.example.techconnect.utilities.AddressUtility;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -66,16 +62,15 @@ public class EventController {
 //
 //    }
 
-    @GetMapping("/events.json")
-    public @ResponseBody List<Event> viewEventsInJson() {
-        return eventRepository.findAll();
-    }
-
-    @GetMapping("/events/ajax")
-    public String viewAllEventsWithAjax() {
-        return "/apitester";
-    }
-
+//    @GetMapping("/events.json")
+//        public @ResponseBody List<Event> viewEventsInJson(){
+//        return eventRepository.findAll();
+//    }
+//
+//    @GetMapping("/events/ajax")
+//    public String viewAllEventsWithAjax() {
+//        return "/apitester";
+//    }
 
     // We need the user's session key from when they login
 
