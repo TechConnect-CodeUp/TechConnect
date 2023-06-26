@@ -52,35 +52,38 @@ public class SecurityConfiguration {
                         // Cole, Johnny has recommended to only use one .requestMatchers for .authenticated().Also, I have added the following paths
                         // event/edit/{id}
                         //"/event/edit"
+                       // "/event-reviews/{id}"
+
 
 
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
-                        .requestMatchers("/event/create", 
-                                         "/event/*/edit",
-                                         "/profile", 
-                                         "/editProfile").authenticated()
+                        .requestMatchers("/event/create",
+                                "/event/*/edit",
+                                "/profile",
+                                "/editProfile",
+                                "/event/reviews/{id}").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", 
-                                         "/events", 
-                                         "/events/*", 
-                                         "/SignUpPage",
-                                         "/LoginPage", 
-                                         "/events.json", 
-                                         "/events/ajax", 
-                                         "/deleteProfile", 
-                                         "/register", 
-                                         "/login", 
-                                         "/events/eventsSearchKeyword", 
-                                         "/events/eventsSearch", 
-                                         "/events.json", 
-                                         "/events/profEvents", 
-                                         "/events/ajax", 
-                                         "/events/userEvents").permitAll()
+                        .requestMatchers("/",
+                                "/events",
+                                "/events/*",
+                                "/SignUpPage",
+                                "/LoginPage",
+                                "/events.json",
+                                "/events/ajax",
+                                "/deleteProfile",
+                                "/register",
+                                "/login",
+                                "/events/eventsSearchKeyword",
+                                "/events/eventsSearch",
+                                "/events.json",
+                                "/events/profEvents",
+                                "/events/ajax",
+                                "/events/userEvents").permitAll()
 
                         // allow loading of static resources
-                        .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 )
 
                 /* Login configuration */
