@@ -163,19 +163,3 @@ public class UserController {
         return "redirect:/LoginPage";
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
