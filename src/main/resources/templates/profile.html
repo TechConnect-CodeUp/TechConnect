@@ -18,6 +18,9 @@
 <div>
     <h3>Profile Information:</h3>
     <ul>
+        <li><img th:src="@{${user.profilePicture}}"></li>
+
+
         <li>First Name: <span th:text="${user.firstName}"></span></li>
         <li>Last Name: <span th:text="${user.lastName}"></span></li>
         <li>Email: <span th:text="${user.email}"></span></li>
@@ -34,6 +37,51 @@
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>
+
+    <!--    This form displays events to the user -->
+
+    <h2>Your Events:</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Date and Time</th>
+            <th>Description</th>
+            <th>Location</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!--            ${events} is referring to the object instance. The HTML table will forward the event information so that it can be edited -->
+        <tr th:each="event : ${events}">
+
+            <td>
+                <a th:href="@{/event/reviews/{eventId} (eventId=${event.eventId})}" th:text="${event.title}"></a>
+            </td>
+
+
+            <!--            <td th:text="${event.title}"></td>-->
+            <td th:text="${event.dateTime}"></td>
+            <td th:text="${event.description}"></td>
+            <td th:text="${event.location}"></td>
+            <td><a th:href="@{'/event/edit/' + ${event.eventId}}">
+                <button>Edit</button>
+            </a></td>
+            <td>
+                <form th:action="@{/event/delete/{id}(id=${event.eventId})}" method="post">
+
+                    <input type="hidden" name="hostId" th:value="${event.host}"/>
+                    <input type="hidden" name="interestId" th:value="${event.interest}"/>
+                    <button type="submit">Delete</button>
+
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+
 </div>
 </body>
 </html>

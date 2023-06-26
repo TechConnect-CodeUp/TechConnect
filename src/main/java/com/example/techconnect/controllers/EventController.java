@@ -2,15 +2,18 @@ package com.example.techconnect.controllers;
 
 import com.example.techconnect.models.Event;
 
+import com.example.techconnect.models.Interest;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.InterestRepository;
+import com.example.techconnect.repositories.ReviewRepository;
 import com.example.techconnect.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 
@@ -25,13 +28,16 @@ public class EventController {
 
     private final InterestRepository interestRepository;
 
+    private final ReviewRepository reviewRepository;
 
-    public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository) {
+
+    public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository,ReviewRepository reviewRepository) {
 
         this.eventRepository = eventRepository;
-//        this.addressUtility = addressUtility;
+//      this.addressUtility = addressUtility;
         this.userRepository = userRepository;
         this.interestRepository = interestRepository;
+        this.reviewRepository = reviewRepository;
 
 
     }
@@ -90,22 +96,19 @@ public class EventController {
     @GetMapping("/event/create")
     public String showEventForm(Model model) {
 
-        // This will display the list of all the interest in our database
-
 
         model.addAttribute("interests", interestRepository.findAll());
 
 
         model.addAttribute("event", new Event());
 
-        return "event";
+        return "/event/create";
     }
 
     @PostMapping("/event/create")
 
     public String createEvent(@ModelAttribute Event event) {
 
-        // This method must also save the hostid and the interest id once they have logged in;
 
         // This piece of code allows us to access the authenticated User;
 
@@ -118,15 +121,78 @@ public class EventController {
 
         eventRepository.save(event);
 
+
+
+
         return "redirect:/profile";
-        // The user should be redirected to their profile page so that the they can view their newly created event
 
 
     }
 
 
-    // The use should be able to view the event they created
-    // Create a method that only lets the loggedIn user see all the events they have created
+    // Create a method that will edit events
+
+    // ALl new mappings within Controllers need to be added to the Security Configuration Class
+
+    @GetMapping("/event/edit/{id}")
+    public String showEditEventPage(@PathVariable long id, Model model) {
+
+        Event event = eventRepository.findById(id).get();
+        model.addAttribute("event", event);
+
+        return "event/edit";
+
+    }
+
+
+    @PostMapping("/event/edit/{id}")
+    public String editEvents(@ModelAttribute Event event, @PathVariable long id) {
+
+
+        // Update the event with the form data
+
+        event.setHost(event.getHost());
+        event.setInterest(event.getInterest());
+        event.setEventId(id);
+        event.setTitle(event.getTitle());
+        event.setDateTime(event.getDateTime());
+        event.setDescription(event.getDescription());
+        event.setLocation(event.getLocation());
+
+
+        eventRepository.save(event);
+
+
+        return "redirect:/profile";
+    }
+
+
+    @PostMapping("/event/delete/{id}")
+
+    public String deleteEvent(@ModelAttribute Event event, @PathVariable long id) {
+
+        event.setHost(new User());
+        event.setInterest(new Interest());
+        eventRepository.deleteById(id);
+        return "redirect:/profile";
+
+
+    }
+
+    @GetMapping("/event/reviews/{eventId}")
+    public String showEventReviews(@PathVariable long eventId, Model model) {
+        // Retrieve the reviews for the specified event from the database
+
+        model.addAttribute("eventId", eventRepository.findById(eventId).get());
+        model.addAttribute("reviews", reviewRepository.findAllByEventId(eventId));
+        return "event-reviews";
+
+
+    }
+
+
+
+
 
 
 }

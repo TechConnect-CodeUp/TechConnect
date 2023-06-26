@@ -64,6 +64,7 @@ public class User {
         this.lastName = copy.lastName;
         this.profilePicture = copy.profilePicture;
     }
+
     // Getter and Setter for profilePicture
     public String getProfilePicture() {
         return profilePicture;
@@ -96,18 +97,12 @@ public class User {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private List<Comment>comments = new ArrayList<>();
-
-
-
+    private List<Comment> comments = new ArrayList<>();
 
 
     @JsonManagedReference
     @OneToMany(mappedBy = "host")
-//    @OneToMany(mappedBy = "user")
     private List<Event> events = new ArrayList<>();
-
-
 
 
 }
