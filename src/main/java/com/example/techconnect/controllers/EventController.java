@@ -6,7 +6,6 @@ import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.InterestRepository;
 import com.example.techconnect.repositories.UserRepository;
-import com.example.techconnect.utilities.AddressUtility;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,15 +61,12 @@ public class EventController {
 //
 //    }
 
-//    @GetMapping("/events.json")
-//        public @ResponseBody List<Event> viewEventsInJson(){
-//        return eventRepository.findAll();
-//    }
-//
-//    @GetMapping("/events/ajax")
-//    public String viewAllEventsWithAjax() {
-//        return "/apitester";
-//    }
+    @GetMapping("/events/ajax")
+    public String viewAllEventsWithAjax() {
+        return "/apitester";
+    }
+
+
 
     // We need the user's session key from when they login
 

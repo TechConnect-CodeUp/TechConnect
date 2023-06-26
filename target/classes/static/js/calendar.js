@@ -28,26 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
     calendar.render();
 
 
-    fetch("/events/allEvents")
-        .then( response => { response.json()
-            .then( events => {
-                events.forEach(event => {
-                    console.log(event);
-                    var eventArr = []
-                    var newEvent = {}
-                    newEvent.title = event.title
-                    newEvent.start = event.dataTime
-                    newEvent.allDay = true
-                    newEvent.color = 'blue'
-                    newEvent.display = 'block'
-
-                    calendar.addEvent(newEvent);
-                    var events = calendar.getEvents();
-
-
-                });
-            });
-        });
+    // fetch("/events/allEvents")
+    //     .then( response => { response.json()
+    //         .then( events => {
+    //             events.forEach(event => {
+    //                 console.log(event);
+    //                 var eventArr = []
+    //                 var newEvent = {}
+    //                 newEvent.title = event.title
+    //                 newEvent.start = event.dataTime
+    //                 newEvent.allDay = true
+    //                 newEvent.color = 'blue'
+    //                 newEvent.display = 'block'
+    //
+    //                 calendar.addEvent(newEvent);
+    //                 var events = calendar.getEvents();
+    //
+    //
+    //             });
+    //         });
+    //     });
 
 // user calendar
 
@@ -108,6 +108,26 @@ document.addEventListener('DOMContentLoaded', function() {
     })
         .setLngLat([-95.7129, 37.0902])
         .addTo(map);
+
+
+
+// all event/location
+
+    // fetch("/events/allEvents")
+    //     .then( response => {response.json()
+    //             .then(events => {
+    //                 events.forEach(event => {
+    //                     console.log(event.location);
+    //                          geocode(event.location, MAPBOXAP_TOK).then(function (result) {
+    //                          let mapCenter = ([result[0], result[1]])
+    //                         map.setCenter(mapCenter);
+    //                         map.setZoom(8)
+    //                         new mapboxgl.Marker().setLngLat(mapCenter).addTo(map);
+    //                         new mapboxgl.Popup().setLngLat(mapCenter).setHTML("<p>" + event.title + "</p>").addTo(map)
+    //                     });
+    //                 });
+    //             });
+    //     })
 
 
 
