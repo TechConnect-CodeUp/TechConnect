@@ -1,5 +1,6 @@
-package com.example.techconnect.controllers;
 
+
+package com.example.techconnect.controllers;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,36 +19,37 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.UUID;
 
-
 @Controller
 public class UserController {
     private final UserRepository userDao;
     private final PasswordEncoder encoder;
 
-    @Value("${file-upload-path}")
-    private String uploadPath;
+    @Value(“${file-upload-path}“)
 
+    private String uploadPath;
     public UserController(UserRepository userDao, PasswordEncoder encoder) {
         this.userDao = userDao;
         this.encoder = encoder;
     }
 
+    @GetMapping(“/SignUpPage”)
 
-
-    @GetMapping("/SignUpPage")
     public String showSignupForm(Model model) {
         User user = new User();
-        model.addAttribute("user", user);
-        return "/SignUpPage";
+        model.addAttribute(“user”, user);
+        return “/SignUpPage”;
     }
 
     @PostMapping("/SignUpPage")
@@ -55,6 +57,7 @@ public class UserController {
             @ModelAttribute User user,
             Model model,
             HttpServletRequest request, MultipartFile profilePicture
+
     ) {
         // Hash the password
         String hash = encoder.encode(user.getPassword());
@@ -119,28 +122,26 @@ public class UserController {
 
 
 
-    @PostMapping("/LoginPage")
-
+    @PostMapping(“/LoginPage”)
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
-
         // Retrieve the user object from the database based on the provided username
         User authenticatedUser = userDao.findByUsername(user.getUsername());
-        System.out.println("Username:" + authenticatedUser);
+        System.out.println(“Username:” + authenticatedUser);
         // Check if the user exists and the password matches
         if (authenticatedUser != null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
             // Authentication successful, set the user attribute in the session
-            request.getSession().setAttribute("user", authenticatedUser);
-            return "redirect:/profile";
+            request.getSession().setAttribute(“user”, authenticatedUser);
+            return “redirect:/profile”;
         }
-
         // if Authentication failed, redirect back to the login page with an error message
-        return "redirect:LoginPage";
+        return “redirect:LoginPage”;
     }
-    @GetMapping("/logout")
+    @GetMapping(“/logout”)
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/LoginPage";
+        return “redirect:/LoginPage”;
     }
+
 
     @GetMapping("/profile")
     public String showProfile(Model model) {
@@ -218,3 +219,5 @@ public class UserController {
 
 
 }
+
+      
