@@ -1,9 +1,11 @@
 package com.example.techconnect.controllers;
 
+import com.example.techconnect.models.Event;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,12 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -29,7 +29,7 @@ public class UserController {
     private final UserRepository userDao;
     private final PasswordEncoder encoder;
 
-    @Value("${file-upload-path}")
+    @Value("file-upload-path")
     private String uploadPath;
 
     public UserController(UserRepository userDao, PasswordEncoder encoder) {
@@ -37,12 +37,15 @@ public class UserController {
         this.encoder = encoder;
     }
 
+
     @GetMapping("/SignUpPage")
+
     public String showSignupForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "/SignUpPage";
     }
+
 
     @PostMapping("/SignUpPage")
     public String registerUser(
@@ -50,6 +53,7 @@ public class UserController {
             Model model,
             @RequestParam(name = "image-upload") MultipartFile profilePicture
     ) {
+
         // Hash the password
         String hash = encoder.encode(user.getPassword());
         // Set the hashed password BEFORE saving to the database
@@ -85,7 +89,9 @@ public class UserController {
 
 
 
+
     @PostMapping("/LoginPage")
+
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
 
         // Retrieve the user object from the database based on the provided username
@@ -108,12 +114,15 @@ public class UserController {
     }
 
 
+
     @GetMapping("/profile")
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         model.addAttribute("user", loggedInUser);
+
         return "/profile";
+
     }
 
 
@@ -123,7 +132,7 @@ public class UserController {
         // Retrieve the user object from the database based on the provided username
         User authenticatedUser = userDao.findByUsername(user.getUsername());
         // Check if the user exists and the password matches
-        if (authenticatedUser!= null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
+        if (authenticatedUser != null && encoder.matches(user.getPassword(), authenticatedUser.getPassword())) {
             // Authentication successful, set the user attribute in the session
             model.addAttribute("user", authenticatedUser);
             return "/profile";
@@ -155,6 +164,7 @@ public class UserController {
         editedUser.setProfilePicture(user.getProfilePicture());
 
 
+
         // Check if the provided password matches the user's current password
         if (encoder.matches(user.getPassword(), editedUser.getPassword())) {
             // Save the updated user to the database
@@ -178,6 +188,7 @@ public class UserController {
         // Redirect to a different page after the deletion, e.g., the homepage
         return "redirect:/LoginPage";
     }
+
 
 
 }

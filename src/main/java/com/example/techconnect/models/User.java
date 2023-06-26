@@ -74,13 +74,17 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Discussion> discussions = new ArrayList<>();
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "user")
-    private List<Comment>comments = new ArrayList<>();
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "user")
-    private List<Event> events = new ArrayList<>();
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "user")
+//    private List<Comment>comments = new ArrayList<>();
+//
+//
+////    @OneToMany(mappedBy = "host")
+//
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "user")
+//
+//    private List<Event> events = new ArrayList<>();
 
 
 

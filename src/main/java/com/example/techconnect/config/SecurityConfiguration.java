@@ -49,17 +49,15 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests((requests) -> requests
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
-<<<<<<< HEAD
-                        .requestMatchers("/events/create", "/events/*/edit","/profile","/events/ajax").authenticated()
+                      .requestMatchers("/event/create", "/event/*/edit","/profile").authenticated()
+                      .requestMatchers("/events/create", "/events/*/edit","/profile").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", "/events", "/events/*", "/register", "/login","/events.json","/events/ajax").permitAll()
-=======
+                        .requestMatchers("/", "/events", "/events/*", "/register", "/login","/events/eventsSearchKeyword","/events/eventsSearch","/events.json","/events/profEvents","/events/ajax","/events/userEvents").permitAll()
                         .requestMatchers("/event/create", "/event/*/edit","/profile", "/editProfile").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
                         .requestMatchers("/", "/events", "/events/*", "/SignUpPage", "/LoginPage", "/deleteProfile").permitAll()
->>>>>>> e5904235e2b0dcc904245bf48022845ba2b43f45
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )
