@@ -1,5 +1,6 @@
 package com.example.techconnect.controllers;
 import com.example.techconnect.models.User;
+import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +29,12 @@ public class UserController {
     private final PasswordEncoder encoder;
     @Value("file-upload-path")
     private String uploadPath;
-    public UserController(UserRepository userDao, PasswordEncoder encoder) {
+
+    private EventRepository eventRepository;
+    public UserController(UserRepository userDao, PasswordEncoder encoder,EventRepository eventRepository) {
         this.userDao = userDao;
         this.encoder = encoder;
+        this.eventRepository = eventRepository;
     }
     @GetMapping("/SignUpPage")
     public String showSignupForm(Model model) {
@@ -110,6 +114,9 @@ public class UserController {
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", loggedInUser);
+
+        // This code shows the event to the user. Please don't delete this code. Consult with Andrew Chu
+        model.addAttribute("events", eventRepository.findAllByHostId(loggedInUser.getId()));
         return "/profile";
     }
     @PostMapping("/profile")
