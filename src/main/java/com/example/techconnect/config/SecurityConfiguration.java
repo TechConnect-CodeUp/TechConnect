@@ -48,6 +48,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
 <<<<<<< HEAD
+<<<<<<< HEAD
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
                         .requestMatchers("/event/create", "/event/*/edit","/profile","/editProfile").authenticated()
@@ -57,12 +58,12 @@ public class SecurityConfiguration {
 =======
 
 
+=======
+>>>>>>> ce5070d86cce21706a87fcfd350123362debd810
                         // Cole, Johnny has recommended to only use one .requestMatchers for .authenticated().Also, I have added the following paths
                         // event/edit/{id}
                         //"/event/edit"
                        // "/event-reviews/{id}"
-
-
 
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
@@ -89,8 +90,11 @@ public class SecurityConfiguration {
                                 "/events/profEvents",
                                 "/events/ajax",
                                 "/events/userEvents").permitAll()
+<<<<<<< HEAD
 
 >>>>>>> main
+=======
+>>>>>>> ce5070d86cce21706a87fcfd350123362debd810
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 )
