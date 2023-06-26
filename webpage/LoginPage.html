@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="/static/css/LoginStyle.css">
+    <link rel="stylesheet" type="text/css" href="../css/LoginStyle.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
+
 </head>
 <body>
 <nav class="navbar">
     <div class="container-fluid">
         <a class="navbar-brand text-light" href="#">
-            <img src="/static/images/LoginBanner.jpg" alt="Navbar Banner" class="navbar-banner">
+            <img src="../images/LoginBanner.jpg" alt="Navbar Banner" class="navbar-banner">
         </a>
     </div>
 </nav>
+
 <h4 class="navbar-brand-text">TechConnect</h4>
+
 <div class="title">
-    <h1>Connect With Us Today!</h1>
-</div>
+        <h1>Connect With Us Today!</h1>
+    </div>
 <div class="login-form">
     <div class="header">
         Login Here
     </div>
     <hr style="background-color: #ccc; margin: 10px 0;">
-
-
-    <form th:action="@{/LoginPage}" th:method="POST">
+    <form>
         <div class="form-group">
             <label for="login">Username:</label>
-            <input type="text" id="login" name="username" class="form-control">
+            <input type="text" id="login" name="login" class="form-control">
         </div>
         <div class="form-group">
             <label for="password">Password:</label>

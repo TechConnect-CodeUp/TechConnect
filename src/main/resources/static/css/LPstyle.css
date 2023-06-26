@@ -1,9 +1,11 @@
 
 html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
     background-image: linear-gradient(to bottom, #270936, #1f0c34, #170d31, #110d2d, #0b0c29, #090c28, #070d26, #050d25, #060f27, #06112a, #06132c, #06152f);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
 }
 
 .container {
@@ -12,7 +14,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    margin-top: 50px;
 }
 
 .navbar-brand {
@@ -56,8 +58,6 @@ html, body {
     position: relative;
     margin-bottom: 5px;
 
-
-
 }
 
 #events {
@@ -85,4 +85,27 @@ h5{
     margin-left: 50px;
 
 }
+
+.card-container {
+    overflow: hidden;
+}
+
+@keyframes scrollRightToLeft {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+.card-row {
+    display: flex;
+    animation: slideRightToLeft linear infinite;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: scrollRightToLeft 30s linear infinite;
+}
+
 

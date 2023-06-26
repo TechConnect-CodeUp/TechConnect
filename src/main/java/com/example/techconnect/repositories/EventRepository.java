@@ -9,7 +9,13 @@ import java.util.List;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
+
+
+
+    // This method helps us find events by UserID
+
     List<Event> findAllByHostId(long id);
+
 
     @Query("from Event where location like ?1")
     List <Event> findEventByLocation(String location);
