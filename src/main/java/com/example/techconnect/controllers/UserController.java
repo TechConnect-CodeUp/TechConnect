@@ -1,5 +1,6 @@
 package com.example.techconnect.controllers;
 import com.example.techconnect.models.User;
+import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,9 +29,12 @@ public class UserController {
     private final PasswordEncoder encoder;
     @Value("file-upload-path")
     private String uploadPath;
-    public UserController(UserRepository userDao, PasswordEncoder encoder) {
+
+    private EventRepository eventRepository;
+    public UserController(UserRepository userDao, PasswordEncoder encoder,EventRepository eventRepository) {
         this.userDao = userDao;
         this.encoder = encoder;
+        this.eventRepository = eventRepository;
     }
     @GetMapping("/SignUpPage")
     public String showSignupForm(Model model) {
@@ -41,18 +45,20 @@ public class UserController {
     @PostMapping("/SignUpPage")
     public String registerUser(
             @ModelAttribute User user,
-            Model model,
-            HttpServletRequest request, MultipartFile profilePicture
+            Model model,@RequestParam(name = "profilePicture") String profilePicture
     ) {
         // Hash the password
         String hash = encoder.encode(user.getPassword());
         // Set the hashed password BEFORE saving to the database
         user.setPassword(hash);
         // Save the profile picture to the database or perform any necessary operations
-        String fileUrl = saveProfilePictureToDatabase(profilePicture);
-        user.setProfilePicture(fileUrl);
+//        String fileUrl = saveProfilePictureToDatabase(profilePicture);
+//        user.setProfilePicture(fileUrl);
+
+        // The code below grabs the attribute name from the @RequestParam and sets it to the profile picture.
+        user.setProfilePicture(profilePicture);
         // Set the user attribute in the session
-        request.getSession().setAttribute("user", user);
+//        request.getSession().setAttribute("user", user);
         model.addAttribute("user", user);
         userDao.save(user);
         return "redirect:/profile";
@@ -109,7 +115,16 @@ public class UserController {
     @GetMapping("/profile")
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("user", loggedInUser);
+//        model.addAttribute("user", loggedInUser);
+
+
+
+        model.addAttribute("user",userDao.findById(loggedInUser.getId()).get());
+
+
+
+        // This code shows the event to the user. Please don't delete this code. Consult with Andrew Chu
+        model.addAttribute("events", eventRepository.findAllByHostId(loggedInUser.getId()));
         return "/profile";
     }
     @PostMapping("/profile")

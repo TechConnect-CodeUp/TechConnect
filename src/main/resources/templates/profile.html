@@ -18,6 +18,9 @@
 <div>
     <h3>Profile Information:</h3>
     <ul>
+        <li><img th:src="@{${user.profilePicture}}"></li>
+
+
         <li>First Name: <span th:text="${user.firstName}"></span></li>
         <li>Last Name: <span th:text="${user.lastName}"></span></li>
         <li>Email: <span th:text="${user.email}"></span></li>
@@ -53,7 +56,7 @@
         <tr th:each="event : ${events}">
 
             <td>
-                <a th:href="@{/events/{eventId}/reviews(eventId=${event.eventId})}" th:text="${event.title}"></a>
+                <a th:href="@{/event/reviews/{eventId} (eventId=${event.eventId})}" th:text="${event.title}"></a>
             </td>
 
 

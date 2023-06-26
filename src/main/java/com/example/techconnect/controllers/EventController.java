@@ -6,6 +6,7 @@ import com.example.techconnect.models.Interest;
 import com.example.techconnect.models.User;
 import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.InterestRepository;
+import com.example.techconnect.repositories.ReviewRepository;
 import com.example.techconnect.repositories.UserRepository;
 import com.example.techconnect.utilities.AddressUtility;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,13 +29,16 @@ public class EventController {
 
     private final InterestRepository interestRepository;
 
+    private final ReviewRepository reviewRepository;
 
-    public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository) {
+
+    public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository,ReviewRepository reviewRepository) {
 
         this.eventRepository = eventRepository;
 //      this.addressUtility = addressUtility;
         this.userRepository = userRepository;
         this.interestRepository = interestRepository;
+        this.reviewRepository = reviewRepository;
 
 
     }
@@ -99,6 +103,8 @@ public class EventController {
         eventRepository.save(event);
 
 
+
+
         return "redirect:/profile";
 
 
@@ -153,6 +159,21 @@ public class EventController {
 
 
     }
+
+    @GetMapping("/event/reviews/{eventId}")
+    public String showEventReviews(@PathVariable long eventId, Model model) {
+        // Retrieve the reviews for the specified event from the database
+
+        model.addAttribute("eventId", eventRepository.findById(eventId).get());
+        model.addAttribute("reviews", reviewRepository.findAllByEventId(eventId));
+        return "event-reviews";
+
+
+    }
+
+
+
+
 
 
 }
