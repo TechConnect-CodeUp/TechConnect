@@ -52,7 +52,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/event/create", "/event/*/edit","/profile","/editProfile").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", "/events", "/events/*","/SignUpPage", "/LoginPage","/events.json","/events/ajax","/events/search", "/deleteProfile", "/register", "/login","/events/eventsSearchKeyword","/events/eventsSearch","/events.json","/events/profEvents","/events/ajax","/events/userEvents","events/searchEvents").permitAll()
+                        .requestMatchers("/", "/events", "/events/*","/SignUpPage", "/LoginPage","/events.json","/events/ajax","/events/search", "/deleteProfile", "/register", "/login","/events/eventsSearchKeyword","/events/eventsSearch","/events.json","/events/profEvents","/events/ajax","/events/userEvents").permitAll()
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )
