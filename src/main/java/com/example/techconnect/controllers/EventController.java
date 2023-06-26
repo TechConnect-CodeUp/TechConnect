@@ -29,14 +29,12 @@ public class EventController {
     private final InterestRepository interestRepository;
 
 
-
     public EventController(EventRepository eventRepository, UserRepository userRepository, InterestRepository interestRepository) {
 
         this.eventRepository = eventRepository;
 //      this.addressUtility = addressUtility;
         this.userRepository = userRepository;
         this.interestRepository = interestRepository;
-
 
 
     }

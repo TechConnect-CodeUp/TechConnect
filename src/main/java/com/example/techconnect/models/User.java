@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +65,14 @@ public class User {
         this.profilePicture = copy.profilePicture;
     }
 
+    // Getter and Setter for profilePicture
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     // Relationship Entity
 
@@ -74,19 +83,26 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Discussion> discussions = new ArrayList<>();
 
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "user")
+//    private List<Comment>comments = new ArrayList<>();
+//
+//
+////    @OneToMany(mappedBy = "host")
+//
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "user")
+//
+//    private List<Event> events = new ArrayList<>();
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user")
-    private List<Comment>comments = new ArrayList<>();
-
+    private List<Comment> comments = new ArrayList<>();
 
 
     @JsonManagedReference
-//    @OneToMany(mappedBy = "user")
     @OneToMany(mappedBy = "host")
-
-
     private List<Event> events = new ArrayList<>();
-
 
 
 }

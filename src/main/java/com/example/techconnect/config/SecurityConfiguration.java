@@ -47,26 +47,26 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
+
+
+
+
+                        // Cole, Johnny has recommended to only use one .requestMatchers for .authenticated().Also, I have added the following paths
+                        // event/edit/{id}
+                        //"/event/edit"
+
+
                         /* Pages that require authentication
                          * only authenticated users can create and edit ads */
-
-                // Cole, Johnny has recommended to only use one .requestMatchers for .authenticated().Also, I have added the following paths
-                                // event/edit/{id}
-                                //"/event/edit"
-
-
-                        .requestMatchers("/event/create", "/event/*/edit","/profile","/event/edit").authenticated()
-                        .requestMatchers("/events/create", "/events/*/edit","/profile","/events/ajax","/event/edit/{id}","/event/delete/{id}").authenticated()
+                        .requestMatchers("/event/create", "/event/*/edit", "/profile", "/editProfile").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", "/events", "/events/*", "/register", "/login","/events.json","/events/ajax").permitAll()
-                        .requestMatchers("/event/create", "/event/*/edit","/profile", "/editProfile").authenticated()
-                        /* Pages that do not require authentication
-                         * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", "/events", "/events/*", "/SignUpPage", "/LoginPage", "/deleteProfile").permitAll()
+                        .requestMatchers("/", "/events", "/events/*", "/SignUpPage", "/LoginPage", "/events.json", "/events/ajax", "/deleteProfile", "/register", "/login", "/events/eventsSearchKeyword", "/events/eventsSearch", "/events.json", "/events/profEvents", "/events/ajax", "/events/userEvents").permitAll()
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 )
+
+
                 /* Login configuration */
                 .formLogin((login) -> login.loginPage("/LoginPage").defaultSuccessUrl("/profile"))
                 /* Logout configuration */
