@@ -11,12 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
-=======
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +25,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Arrays;
->>>>>>> e5904235e2b0dcc904245bf48022845ba2b43f45
+import java.util.UUID;
+
 
 @Controller
 public class UserController {
@@ -39,49 +41,69 @@ public class UserController {
         this.encoder = encoder;
     }
 
-<<<<<<< HEAD
-    @GetMapping("/register")
-=======
+
+
     @GetMapping("/SignUpPage")
->>>>>>> main
     public String showSignupForm(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "/SignUpPage";
     }
 
-<<<<<<< HEAD
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, Model model) {
-=======
     @PostMapping("/SignUpPage")
     public String registerUser(
             @ModelAttribute User user,
             Model model,
-            @RequestParam(name = "image-upload") MultipartFile profilePicture
+            HttpServletRequest request, MultipartFile profilePicture
     ) {
->>>>>>> main
         // Hash the password
         String hash = encoder.encode(user.getPassword());
         // Set the hashed password BEFORE saving to the database
         user.setPassword(hash);
 
-        String filename = profilePicture.getOriginalFilename();
-        String filepath = Paths.get(uploadPath, filename).toString();
-        File destinationFile = new File(filepath);
-        try {
-            profilePicture.transferTo(destinationFile);
-            model.addAttribute("message", "File successfully uploaded!");
-        } catch (IOException e) {
-            e.printStackTrace();
-            model.addAttribute("message", "Oops! Something went wrong! " + e);
-        }
+        // Save the profile picture to the database or perform any necessary operations
+        String fileUrl = saveProfilePictureToDatabase(profilePicture);
+        user.setProfilePicture(fileUrl);
 
-        userDao.save(user);
+        // Set the user attribute in the session
+        request.getSession().setAttribute("user", user);
 
         model.addAttribute("user", user);
+        userDao.save(user);
         return "redirect:/profile";
     }
+    private String saveProfilePictureToDatabase(MultipartFile profilePicture) {
+        // Implement the logic to save the profile picture to the database
+        // Here, you can use your preferred method or framework to store the file and return the URL or identifier of the saved picture
+
+        // Example implementation using Spring Boot's MultipartFile.transferTo() method:
+        String fileUrl = null;
+        try {
+            // Specify the directory path where you want to save the profile pictures
+            String directoryPath = "/Users/coleusher/IdeaProjects/TechConnect/src/main/resources/static/images";
+
+            // Generate a unique file name or use the original file name
+            String fileName = UUID.randomUUID().toString() + "_" + profilePicture.getOriginalFilename();
+
+            // Create a Path object with the directory path and file name
+            Path filePath = Paths.get(directoryPath, fileName);
+
+            // Transfer the profile picture file to the specified location
+            profilePicture.transferTo(filePath.toFile());
+
+            // Set the file URL as the saved file's path or identifier
+            fileUrl = filePath.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception or return an error message if the file saving fails
+        }
+
+        return fileUrl;
+    }
+
+
+
+
 
 //    @GetMapping("/user.json")
 //    public @ResponseBody List<User> viewUsersInJson(){
@@ -93,14 +115,12 @@ public class UserController {
 //        return "users/ajax";
 //    }
 
-<<<<<<< HEAD
-    @PostMapping("/login")
-=======
+
 
 
 
     @PostMapping("/LoginPage")
->>>>>>> main
+
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
 
         // Retrieve the user object from the database based on the provided username
@@ -122,21 +142,14 @@ public class UserController {
         return "redirect:/LoginPage";
     }
 
-
-<<<<<<< HEAD
-    // not allowing to go to /profile when logging in redirects to /login I guess the user is null
-=======
->>>>>>> main
     @GetMapping("/profile")
     public String showProfile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         model.addAttribute("user", loggedInUser);
-<<<<<<< HEAD
-        return "profile";
-=======
+
         return "/profile";
->>>>>>> main
+
     }
 
 
@@ -161,10 +174,10 @@ public class UserController {
     public String showEditProfileForm(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", loggedInUser);
-        return "/editProfile"; // Return the name of the template
+        return "editProfile"; // Return the name of the template
     }
     @PostMapping("/editProfile")
-    public String editProfile(@ModelAttribute User user, Model model) {
+    public String editProfile(@ModelAttribute User user, Model model,  @RequestParam(name = "image-upload") MultipartFile profilePicture) {
         // Retrieve the currently logged-in user
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User editedUser = userDao.findById(loggedInUser.getId()).get();
@@ -175,10 +188,8 @@ public class UserController {
         editedUser.setFirstName(user.getFirstName());
         editedUser.setLastName(user.getLastName());
         editedUser.setUsername(user.getUsername());
+        editedUser.setPassword(user.getPassword());
         editedUser.setProfilePicture(user.getProfilePicture());
-
-<<<<<<< HEAD
-=======
 
         // Check if the provided password matches the user's current password
         if (encoder.matches(user.getPassword(), editedUser.getPassword())) {
@@ -205,5 +216,5 @@ public class UserController {
     }
 
 
->>>>>>> main
+
 }

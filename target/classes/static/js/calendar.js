@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
             address: "ft worth" ,
         },
     ]
+
+
     (function($) {
         var request = $.ajax({'url': '/events.json'});
         request.done(function (events) {
