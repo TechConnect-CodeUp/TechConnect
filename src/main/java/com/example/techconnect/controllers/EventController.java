@@ -42,14 +42,12 @@ public class EventController {
 
     }
 
-<<<<<<< HEAD
     @GetMapping("/events/ajax")
     public String viewAllEventsWithAjax() {
         return "/apitester";
     }
 
-=======
->>>>>>> ce5070d86cce21706a87fcfd350123362debd810
+
 
     // I want to login to the website
 
