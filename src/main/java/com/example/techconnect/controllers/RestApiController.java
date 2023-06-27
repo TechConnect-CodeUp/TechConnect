@@ -33,11 +33,11 @@ public class RestApiController {
         return eventRepository.findAllByHostId(loggedIn.getId());
     }
 
-//    @GetMapping("/searchEvents")
-//    public List <Event> searchEvents(@RequestParam (name = "location")String location){
-//        System.out.println(eventRepository.findEventByLocation(location));
-//        return eventRepository.findEventByLocation(location);
-//    }
+    @GetMapping("/searchEvents")
+    public List <Event> searchEvents(@RequestParam (name = "location")String location){
+        System.out.println(eventRepository.findEventByLocation(location));
+        return eventRepository.findEventByLocation(location);
+    }
 
 
 

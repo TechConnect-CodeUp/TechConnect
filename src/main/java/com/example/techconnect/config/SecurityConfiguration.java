@@ -47,19 +47,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        /* Pages that require authentication
-                         * only authenticated users can create and edit ads */
-                        .requestMatchers("/event/create", "/event/*/edit","/profile","/editProfile").authenticated()
-                        /* Pages that do not require authentication
-                         * anyone can visit the home page, register, login, and view ads */
-                        .requestMatchers("/", "/events", "/events/*","/SignUpPage", "/LoginPage","/events.json","/events/ajax","/events/search", "/deleteProfile", "/register", "/login","/events/eventsSearchKeyword","/events/eventsSearch","/events.json","/events/profEvents","/events/ajax","/events/userEvents").permitAll()
-=======
-
-
-=======
->>>>>>> ce5070d86cce21706a87fcfd350123362debd810
                         // Cole, Johnny has recommended to only use one .requestMatchers for .authenticated().Also, I have added the following paths
                         // event/edit/{id}
                         //"/event/edit"
@@ -85,20 +72,15 @@ public class SecurityConfiguration {
                                 "/register",
                                 "/login",
                                 "/events/eventsSearchKeyword",
-                                "/events/eventsSearch",
+                                "/events/searchEvents",
                                 "/events.json",
                                 "/events/profEvents",
                                 "/events/ajax",
                                 "/events/userEvents").permitAll()
-<<<<<<< HEAD
 
->>>>>>> main
-=======
->>>>>>> ce5070d86cce21706a87fcfd350123362debd810
                         // allow loading of static resources
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 )
-
                 /* Login configuration */
                 .formLogin((login) -> login.loginPage("/LoginPage").defaultSuccessUrl("/profile"))
                 /* Logout configuration */
