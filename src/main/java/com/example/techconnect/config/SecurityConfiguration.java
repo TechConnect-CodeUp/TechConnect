@@ -52,13 +52,18 @@ public class SecurityConfiguration {
                         //"/event/edit"
                        // "/event-reviews/{id}"
 
+                        // "/event/{eventId}/delete"
+
+
+
                         /* Pages that require authentication
-                         * only authenticated users can create and edit ads */
+                         * only authenticated users can create and edit events */
                         .requestMatchers("/event/create",
-                                "/event/*/edit",
+                                "/event/{id}/edit",
                                 "/profile",
                                 "/editProfile",
-                                "/event/reviews/{id}").authenticated()
+                                "/event/reviews/{id}",
+                                "/event/{eventId}/delete").authenticated()
                         /* Pages that do not require authentication
                          * anyone can visit the home page, register, login, and view ads */
                         .requestMatchers("/",

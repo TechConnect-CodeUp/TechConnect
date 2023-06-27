@@ -9,7 +9,7 @@
 
 <h1>Edit Event</h1>
 
-<form th:action="@{/event/edit/{id} (id =${event.eventId})}" th:object="${event}" method="post">
+<form th:action="@{/event/{id}/edit (id =${event.eventId})}" th:object="${event}" method="post">
     <label for="title">Title:</label>
     <input type="text" id="title" th:field="*{title}"/>
 
