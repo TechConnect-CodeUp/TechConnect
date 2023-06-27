@@ -1,7 +1,7 @@
 "use strict";
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -27,26 +27,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 
+    //
+    // fetch("/events/allEvents")
+    //     .then( response => { response.json()
+    //         .then( events => {
+    //             events.forEach(event => {
+    //                 console.log(event);
+    //                 var eventArr = []
+    //                 var newEvent = {}
+    //                 newEvent.title = event.title
+    //                 newEvent.start = event.dataTime
+    //                 newEvent.allDay = true
+    //                 newEvent.color = 'blue'
+    //                 newEvent.display = 'block'
+    //
+    //                 calendar.addEvent(newEvent);
+    //                 var events = calendar.getEvents();
+    //
+    //
+    //             });
+    //         });
+    //     });
+
+// user calendar
 
     fetch("/events/userEvents")
-        .then( response => { response.json()
-            .then( events => {
-                events.forEach(event => {
-                    console.log(event);
-                    var eventArr = []
-                    var newEvent = {}
-                    newEvent.title = event.title
-                    newEvent.start = event.dataTime
-                    newEvent.allDay = true
-                    newEvent.color = 'blue'
-                    newEvent.display = 'block'
+        .then(response => {
+            response.json()
+                .then(events => {
+                    events.forEach(event => {
+                        console.log(event);
+                        var eventArr = []
+                        var newEvent = {}
+                        newEvent.title = event.title
+                        newEvent.start = event.dataTime
+                        newEvent.allDay = true
+                        newEvent.color = 'blue'
+                        newEvent.display = 'block'
 
-                    calendar.addEvent(newEvent);
-                    var events = calendar.getEvents();
-
-
+                        calendar.addEvent(newEvent);
+                        var events = calendar.getEvents();
+                    });
                 });
-            });
         });
 
 
@@ -83,55 +105,68 @@ document.addEventListener('DOMContentLoaded', function() {
         marker: [-95.7129, 37.0902],
         zoom: 3,
     });
-    let marker = new mapboxgl.Marker({
-    })
+    let marker = new mapboxgl.Marker({})
         .setLngLat([-95.7129, 37.0902])
         .addTo(map);
 
 
-
-
+// user event/location
 
     fetch("/events/userEvents")
-        .then( response => {response.json()
+        .then(response => {
+            response.json()
                 .then(events => {
                     events.forEach(event => {
                         console.log(event.location);
-                             geocode(event.location, MAPBOXAP_TOK).then(function (result) {
-                             let mapCenter = ([result[0], result[1]])
+                        geocode(event.location, MAPBOXAP_TOK).then(function (result) {
+                            let mapCenter = ([result[0], result[1]])
                             map.setCenter(mapCenter);
                             map.setZoom(8)
                             new mapboxgl.Marker().setLngLat(mapCenter).addTo(map);
                             new mapboxgl.Popup().setLngLat(mapCenter).setHTML("<p>" + event.title + "</p>").addTo(map)
-                        });
-                    });
-                });
-        })
-
-
-    fetch("/events/profEvents")
-        .then(response => { response.json()
-            .then(events => {
-                events.forEach(event => {
-                    console.log(event)
+                        })
+                    })
                 })
-            })
         })
 
+// shows all events
 
-    fetch("/events/eventsSearch")
-        .then(response => { response.json()
-            .then(events => {
-                events.forEach(event => {
-                    console.log(event)
-                })
-            })
-        })
+    // fetch("/events/allEvents")
+    //     .then( response => {
+    //         response.json()
+    //             .then(events => {
+    //                 events.forEach(event => {
+    //                     console.log(event.location);
+    //                     geocode(event.location, MAPBOXAP_TOK).then(function (result) {
+    //                         let mapCenter = ([result[0], result[1]])
+    //                         map.setCenter(mapCenter);
+    //                         map.setZoom(8)
+    //                         new mapboxgl.Marker().setLngLat(mapCenter).addTo(map);
+    //                         new mapboxgl.Popup().setLngLat(mapCenter).setHTML("<p>" + event.title + "</p>").addTo(map)
+    //                     })
+    //                 })
+    //             })
+    //     })
 
 
+    // fetch("http://localhost:8080/events/searchEvents")
+    //     .then(response => response.json())
+    //     .then(events => {
+    // events.forEach(event => {
+    //     console.log(event.location);
+    //     geocode(event.location, MAPBOXAP_TOK).then(function (result) {
+    //         let mapCenter = ([result[0], result[1]])
+    //         map.setCenter(mapCenter);
+    //         map.setZoom(8)
+    //         new mapboxgl.Marker().setLngLat(mapCenter).addTo(map);
+    //         new mapboxgl.Popup().setLngLat(mapCenter).setHTML("<p>" + event.title + "</p>").addTo(map)
+    //     })
+    //         console.log(events)
+    //     })
 
-
-
+    fetch(`http://localhost:8080/events/searchEvents?location=${eventLocation}}`)
+        .then(res => res.json())
+        .then(data => console.log(data));
 
     function updateMarker() {
         document.getElementById("rsvp").addEventListener("click", function () {
@@ -158,8 +193,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     updateMarker()
-
-
 
 
 })

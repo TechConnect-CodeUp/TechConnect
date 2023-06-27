@@ -8,7 +8,6 @@ import com.example.techconnect.repositories.EventRepository;
 import com.example.techconnect.repositories.InterestRepository;
 import com.example.techconnect.repositories.ReviewRepository;
 import com.example.techconnect.repositories.UserRepository;
-import com.example.techconnect.utilities.AddressUtility;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,16 +42,37 @@ public class EventController {
 
     }
 
-
-    @GetMapping("/events.json")
-    public @ResponseBody List<Event> viewEventsInJson() {
-        return eventRepository.findAll();
-    }
-
     @GetMapping("/events/ajax")
     public String viewAllEventsWithAjax() {
         return "/apitester";
     }
+
+
+
+    // I want to login to the website
+
+    // The page should be displayed to the user
+
+
+//    @GetMapping("/event/create")
+//    public String showEventForm(Model model) {
+//
+//        model.addAttribute("event", new Event());
+//
+//        return "/event/create";
+//    }
+//
+//    @PostMapping("/event/create")
+//
+//    public String createEvent(@ModelAttribute Event event) {
+//
+//        eventRepository.save(event);
+//
+//        return "/event/create";
+//
+//
+//    }
+
 
 
     // We need the user's session key from when they login

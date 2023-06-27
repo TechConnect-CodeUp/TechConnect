@@ -57,16 +57,22 @@
 <form autocomplete="off">
 <label class="d-flex" for="search">
     <input class="form-control me-2"  id="search">
-    <button class="btn btn-primary" id="sub" type="button">Search</button>
+    <button class="btn btn-primary" id="sub" type="submit">Search</button>
 </label>
 </form>
-    <form th:action="@{/eventsSearch}" th:method="post">
+    <form th:action="@{/events/searchEvents}" th:method="get">
         <label for="location">Location</label>
         <input type="text" id="location" name="location">
+    <button type="submit" value="Submit">Submit</button>
     </form>
-    <input type="submit" value="Submit">
 <!--MAP-->
 <div id="map"></div>
+
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script>
+    fetch("http://localhost:8080/events/searchEvents")
+        .then(res => res.json())
+        .then(data => console.log(data));
+</script>
 </body>
 </html>
