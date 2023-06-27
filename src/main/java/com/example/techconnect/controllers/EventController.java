@@ -115,10 +115,10 @@ public class EventController {
 
     // ALl new mappings within Controllers need to be added to the Security Configuration Class
 
-    @GetMapping("/event/edit/{id}")
-    public String showEditEventPage(@PathVariable long id, Model model) {
+    @GetMapping("/event/{eventId}/edit")
+    public String showEditEventPage(@PathVariable long eventId, Model model) {
 
-        Event event = eventRepository.findById(id).get();
+        Event event = eventRepository.findById(eventId).get();
         model.addAttribute("event", event);
 
         return "event/edit";
@@ -126,15 +126,15 @@ public class EventController {
     }
 
 
-    @PostMapping("/event/edit/{id}")
-    public String editEvents(@ModelAttribute Event event, @PathVariable long id) {
+    @PostMapping("/event/{eventId}/edit")
+    public String editEvents(@ModelAttribute Event event, @PathVariable long eventId) {
 
 
         // Update the event with the form data
 
         event.setHost(event.getHost());
         event.setInterest(event.getInterest());
-        event.setEventId(id);
+        event.setEventId(eventId);
         event.setTitle(event.getTitle());
         event.setDateTime(event.getDateTime());
         event.setDescription(event.getDescription());
@@ -148,13 +148,13 @@ public class EventController {
     }
 
 
-    @PostMapping("/event/delete/{id}")
+    @PostMapping("/event/{eventId}/delete")
 
-    public String deleteEvent(@ModelAttribute Event event, @PathVariable long id) {
+    public String deleteEvent(@ModelAttribute Event event, @PathVariable long eventId) {
 
         event.setHost(new User());
         event.setInterest(new Interest());
-        eventRepository.deleteById(id);
+        eventRepository.deleteById(eventId);
         return "redirect:/profile";
 
 
